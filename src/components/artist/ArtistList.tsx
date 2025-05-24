@@ -2,12 +2,7 @@
 import React from "react";
 import ArtistCard from "./ArtistCard";
 import Carousel from "../common/Carousel";
-
-type Artist = {
-  id: string;
-  name: string;
-  images?: { url: string }[];
-};
+import type { Artist } from "../../types/timeline";
 
 type ArtistListProps = {
   artists: Artist[];

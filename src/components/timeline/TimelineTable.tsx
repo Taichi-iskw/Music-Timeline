@@ -1,12 +1,7 @@
 "use client";
 import React from "react";
 import TimelineRow from "./TimelineRow";
-
-type Work = {
-  id: string;
-  name: string;
-  imageUrl?: string;
-};
+import type { Work } from "../../types/timeline";
 
 type TimelineTableProps = {
   years: string[];

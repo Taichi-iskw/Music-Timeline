@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
-
-type WorksType = "single" | "album" | "all";
+import type { WorksType } from "../../types/timeline";
 
 type WorksTypeSelectorProps = {
   value: WorksType;

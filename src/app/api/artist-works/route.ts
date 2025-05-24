@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSpotifyAccessToken } from "@/lib/spotifyToken";
+import type { WorksType } from "@/types/timeline";
 
 export async function GET(req: NextRequest) {
-  type WorksType = "single" | "album" | "all";
-
   const { searchParams } = new URL(req.url);
   const artistId = searchParams.get("artistId");
   const type = (searchParams.get("type") || "all") as WorksType;

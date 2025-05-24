@@ -1,12 +1,7 @@
 "use client";
 import React from "react";
 import WorkCard from "./WorkCard";
-
-type Work = {
-  id: string;
-  name: string;
-  imageUrl?: string;
-};
+import type { Work } from "../../types/timeline";
 
 type TimelineCellProps = {
   works: Work[];

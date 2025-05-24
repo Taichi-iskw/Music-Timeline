@@ -5,28 +5,11 @@ import ArtistSearchBar from "../components/artist/ArtistSearchBar";
 import ArtistList from "../components/artist/ArtistList";
 import WorksTypeSelector from "../components/timeline/WorksTypeSelector";
 import TimelineTable from "../components/timeline/TimelineTable";
-
-type Work = {
-  id: string;
-  name: string;
-  imageUrl?: string;
-  releaseYear: string;
-  releaseDate: string;
-};
-
-type Artist = {
-  id: string;
-  name: string;
-  images?: { url: string }[];
-};
-
-type WorkWithArtist = Work & {
-  artistName: string;
-};
+import type { Work, Artist, WorkWithArtist, WorksType } from "../types/timeline";
 
 export default function Home() {
   const [artists, setArtists] = useState<Artist[]>([]);
-  const [worksType, setWorksType] = useState<"single" | "album" | "all">("all");
+  const [worksType, setWorksType] = useState<WorksType>("all");
   const [selectedArtists, setSelectedArtists] = useState<Artist[]>([]);
   const [worksByArtist, setWorksByArtist] = useState<{ [key: string]: Work[] }>({});
   const [isAscending, setIsAscending] = useState(false);

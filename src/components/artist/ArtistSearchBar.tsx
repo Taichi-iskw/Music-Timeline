@@ -1,11 +1,6 @@
 "use client";
 import React, { useState } from "react";
-
-type Artist = {
-  id: string;
-  name: string;
-  images?: { url: string }[];
-};
+import type { Artist } from "../../types/timeline";
 
 type ArtistSearchBarProps = {
   onSearch: (artists: Artist[]) => void;
