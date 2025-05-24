@@ -4,10 +4,11 @@ import React from "react";
 type WorkCardProps = {
   name: string;
   imageUrl?: string;
+  onClick?: () => void;
 };
 
-const WorkCard: React.FC<WorkCardProps> = ({ name, imageUrl }) => (
-  <div className="flex flex-col items-center w-24">
+const WorkCard: React.FC<WorkCardProps> = ({ name, imageUrl, onClick }) => (
+  <div className="flex flex-col items-center w-24 cursor-pointer" onClick={onClick}>
     {imageUrl ? (
       <img src={imageUrl} alt={name} className="w-20 h-20 object-cover rounded mb-1" />
     ) : (

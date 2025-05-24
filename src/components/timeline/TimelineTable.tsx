@@ -10,6 +10,7 @@ type TimelineTableProps = {
   onRemoveArtist?: (artistIndex: number) => void;
   onToggleSort?: () => void;
   isAscending?: boolean;
+  onWorkClick?: (work: Work) => void;
 };
 
 const TimelineTable: React.FC<TimelineTableProps> = ({
@@ -19,6 +20,7 @@ const TimelineTable: React.FC<TimelineTableProps> = ({
   onRemoveArtist,
   onToggleSort,
   isAscending = false,
+  onWorkClick,
 }) => (
   <table className="min-w-full border-collapse">
     <thead>
@@ -53,7 +55,7 @@ const TimelineTable: React.FC<TimelineTableProps> = ({
     </thead>
     <tbody>
       {years.map((year, yearIdx) => (
-        <TimelineRow key={year} year={year} worksByArtist={worksByYearAndArtist[yearIdx]} />
+        <TimelineRow key={year} year={year} worksByArtist={worksByYearAndArtist[yearIdx]} onWorkClick={onWorkClick} />
       ))}
     </tbody>
   </table>

@@ -5,7 +5,10 @@ import ArtistSearchBar from "../components/artist/ArtistSearchBar";
 import ArtistList from "../components/artist/ArtistList";
 import WorksTypeSelector from "../components/timeline/WorksTypeSelector";
 import TimelineTable from "../components/timeline/TimelineTable";
+import Modal from "../components/common/Modal";
 import { useTimeline } from "../hooks/useTimeline";
+import { useWorkModal } from "../hooks/useWorkModal";
+import type { Work } from "../types/timeline";
 
 export default function Home() {
   const {
@@ -22,6 +25,12 @@ export default function Home() {
   } = useTimeline();
 
   const { years, artistNames, worksByYearAndArtist } = organizeWorksByYear();
+
+  const { selectedWork, openModal, closeModal } = useWorkModal();
+
+  const handleWorkClick = (work: Work) => {
+    openModal(work);
+  };
 
   return (
     <div>
@@ -47,9 +56,13 @@ export default function Home() {
               onRemoveArtist={handleRemoveArtistFromTable}
               onToggleSort={handleToggleSort}
               isAscending={isAscending}
+              onWorkClick={handleWorkClick}
             />
           </div>
         )}
+        <Modal open={!!selectedWork} onClose={closeModal}>
+          {selectedWork && <div className="text-xl font-bold">{selectedWork.name}</div>}
+        </Modal>
       </main>
     </div>
   );
