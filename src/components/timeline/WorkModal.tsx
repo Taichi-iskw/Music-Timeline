@@ -17,7 +17,7 @@ const WorkModal: React.FC<{
   const modalBase =
     "fixed z-50 flex flex-col items-center bg-white shadow-lg border border-gray-200 transition-all duration-300";
   const modalNormal = "top-1/2 left-1/2 w-[520px] max-w-full h-[680px] -translate-x-1/2 -translate-y-1/2 rounded-lg";
-  const modalMin = "bottom-4 left-4 w-[320px] h-[100px] rounded-lg";
+  const modalMin = "bottom-5 left-4 w-[320px] h-[130px] rounded-lg";
   const overlay = "fixed inset-0 bg-black bg-opacity-40 z-40 transition-opacity duration-300";
 
   return (
