@@ -18,6 +18,7 @@ export default function Home() {
     worksType,
     setWorksType,
     selectedArtists,
+    setSelectedArtists,
     handleArtistClick,
     handleRemoveArtistFromTable,
     handleToggleSort,
@@ -58,6 +59,9 @@ export default function Home() {
               onToggleSort={handleToggleSort}
               isAscending={isAscending}
               onWorkClick={handleWorkClick}
+              onSortEnd={(newOrder) => {
+                setSelectedArtists((prev) => newOrder.map((i) => prev[i]));
+              }}
             />
           </div>
         )}

@@ -74,6 +74,7 @@ export function useTimelineCore() {
     worksType,
     setWorksType,
     selectedArtists,
+    setSelectedArtists,
     handleArtistClick,
     handleRemoveArtistFromTable,
     handleToggleSort,
