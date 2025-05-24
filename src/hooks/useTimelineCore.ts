@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Work, Artist, WorkWithArtist, WorksType } from "../types/timeline";
 import { fetchArtistWorks } from "../services/artistService";
+import { sortWorksByDate, getSortedYears } from "../utils/timelineSort";
 
 export function useTimelineCore() {
   const [worksType, setWorksType] = useState<WorksType>("all");
@@ -39,22 +40,6 @@ export function useTimelineCore() {
     setIsAscending((prev) => !prev);
   };
 
-  // Sort works by release date
-  const sortWorksByDate = (works: WorkWithArtist[]): WorkWithArtist[] => {
-    return works.sort((a, b) => {
-      if (!a.releaseDate) return 1;
-      if (!b.releaseDate) return -1;
-      return isAscending ? a.releaseDate.localeCompare(b.releaseDate) : b.releaseDate.localeCompare(a.releaseDate);
-    });
-  };
-
-  // Get sorted years from works
-  const getSortedYears = (works: WorkWithArtist[]): string[] => {
-    return Array.from(new Set(works.map((work) => work.releaseYear)))
-      .filter(Boolean)
-      .sort((a, b) => (isAscending ? a.localeCompare(b) : b.localeCompare(a)));
-  };
-
   // Organize works by year and artist
   const organizeWorksByYear = () => {
     if (selectedArtists.length === 0) {
@@ -68,8 +53,8 @@ export function useTimelineCore() {
       const works = worksByArtist[artist.id] || [];
       return works.map((work) => ({ ...work, artistName: artist.name }));
     });
-    const sortedWorks = sortWorksByDate(allWorks);
-    const years = getSortedYears(sortedWorks);
+    const sortedWorks = sortWorksByDate(allWorks, isAscending);
+    const years = getSortedYears(sortedWorks, isAscending);
     const worksByYearAndArtist = years.map((year) =>
       selectedArtists.map((artist) => {
         const worksInYear = sortedWorks
