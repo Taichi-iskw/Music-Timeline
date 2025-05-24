@@ -18,18 +18,22 @@ export async function GET(req: NextRequest) {
 
   try {
     const { access_token } = await getSpotifyAccessToken();
-    const res = await fetch(
-      `https://api.spotify.com/v1/artists/${artistId}/albums?include_groups=${includeGroups}&limit=50`,
-      {
+    let url = `https://api.spotify.com/v1/artists/${artistId}/albums?include_groups=${includeGroups}&limit=50`;
+    let allItems: any[] = [];
+
+    while (url) {
+      const res = await fetch(url, {
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
-      }
-    );
-    const data = await res.json();
+      });
+      const data = await res.json();
+      allItems = allItems.concat(data.items || []);
+      url = data.next;
+    }
 
     // Extract only the necessary information
-    const works = (data.items || []).map((item: any) => ({
+    const works = allItems.map((item: any) => ({
       id: item.id,
       name: item.name,
       imageUrl: item.images?.[0]?.url,
