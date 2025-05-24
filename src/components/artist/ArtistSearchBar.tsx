@@ -1,7 +1,17 @@
 "use client";
 import React, { useState } from "react";
 
-const ArtistSearchBar: React.FC = () => {
+type Artist = {
+  id: string;
+  name: string;
+  images?: { url: string }[];
+};
+
+type ArtistSearchBarProps = {
+  onSearch: (artists: Artist[]) => void;
+};
+
+const ArtistSearchBar: React.FC<ArtistSearchBarProps> = ({ onSearch }) => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -11,9 +21,10 @@ const ArtistSearchBar: React.FC = () => {
     try {
       const res = await fetch(`/api/search-artist?q=${encodeURIComponent(input)}`);
       const data = await res.json();
-      console.log(data);
+      onSearch(data);
     } catch (e) {
       console.error("Failed to search artist", e);
+      onSearch([]);
     } finally {
       setLoading(false);
     }
