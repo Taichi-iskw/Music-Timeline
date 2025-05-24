@@ -14,8 +14,6 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=development
-      - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
-      - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
     command: npm run dev
     restart: unless-stopped
     healthcheck:
