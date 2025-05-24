@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Work, WorkWithArtist, WorksType } from "../types/timeline";
 import { fetchArtistWorks } from "../services/artistService";
 
@@ -19,6 +19,14 @@ export function useWorks() {
       console.error("Failed to fetch works", e);
     }
   };
+
+  // Refetch works when type changes
+  useEffect(() => {
+    const artistIds = Object.keys(worksByArtist);
+    artistIds.forEach((artistId) => {
+      fetchWorks(artistId);
+    });
+  }, [worksType]);
 
   const removeWorks = (artistId: string) => {
     setWorksByArtist((prev) => {

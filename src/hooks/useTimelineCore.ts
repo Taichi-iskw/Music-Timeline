@@ -1,7 +1,7 @@
 import { useArtists } from "./useArtists";
 import { useWorks } from "./useWorks";
 import { useTimelineSort } from "./useTimelineSort";
-import type { Artist } from "../types/timeline";
+import type { Artist, WorksType } from "../types/timeline";
 
 export function useTimelineCore() {
   const {
@@ -28,9 +28,14 @@ export function useTimelineCore() {
     removeWorks(artistId);
   };
 
+  // Handle works type change
+  const handleWorksTypeChange = (type: WorksType) => {
+    setWorksType(type);
+  };
+
   return {
     worksType,
-    setWorksType,
+    setWorksType: handleWorksTypeChange,
     selectedArtists,
     setSelectedArtists,
     handleArtistClick,
