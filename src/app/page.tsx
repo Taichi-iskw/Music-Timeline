@@ -22,27 +22,35 @@ type Artist = {
 export default function Home() {
   const [artists, setArtists] = useState<Artist[]>([]);
   const [worksType, setWorksType] = useState<"single" | "album" | "all">("all");
-  const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
-  const [works, setWorks] = useState<Work[]>([]);
+  const [selectedArtists, setSelectedArtists] = useState<Artist[]>([]);
+  const [worksByArtist, setWorksByArtist] = useState<{ [key: string]: Work[] }>({});
 
   const handleArtistClick = async (artistId: string) => {
     const artist = artists.find((a) => a.id === artistId);
-    if (!artist) return;
+    if (!artist || selectedArtists.some((a) => a.id === artistId)) return;
 
-    setSelectedArtist(artist);
+    setSelectedArtists((prev) => [...prev, artist]);
     try {
       const res = await fetch(`/api/artist-works?artistId=${artistId}&type=${worksType}`);
       const data = await res.json();
-      setWorks(data);
+      setWorksByArtist((prev) => ({ ...prev, [artistId]: data }));
     } catch (e) {
       console.error("Failed to fetch works", e);
-      setWorks([]);
     }
+  };
+
+  const handleRemoveArtist = (artistId: string) => {
+    setSelectedArtists((prev) => prev.filter((a) => a.id !== artistId));
+    setWorksByArtist((prev) => {
+      const newWorks = { ...prev };
+      delete newWorks[artistId];
+      return newWorks;
+    });
   };
 
   // Organize works by year
   const organizeWorksByYear = () => {
-    if (!selectedArtist || works.length === 0) {
+    if (selectedArtists.length === 0) {
       return {
         years: [],
         artistNames: [],
@@ -50,23 +58,30 @@ export default function Home() {
       };
     }
 
-    // Get unique years and sort them
-    const years = Array.from(new Set(works.map((work) => work.releaseYear))).sort((a, b) => b.localeCompare(a));
+    // Get all works and their years
+    const allWorks = selectedArtists.flatMap((artist) => worksByArtist[artist.id] || []);
+    const years = Array.from(new Set(allWorks.map((work) => work.releaseYear))).sort((a, b) => b.localeCompare(a));
 
     // Create the 3D array structure
-    const worksByYearAndArtist = years.map((year) => {
-      const worksInYear = works.filter((work) => work.releaseYear === year);
-      return [worksInYear]; // Single artist for now
-    });
+    const worksByYearAndArtist = years.map((year) =>
+      selectedArtists.map((artist) => (worksByArtist[artist.id] || []).filter((work) => work.releaseYear === year))
+    );
 
     return {
       years,
-      artistNames: [selectedArtist.name],
+      artistNames: selectedArtists.map((a) => a.name),
       worksByYearAndArtist,
     };
   };
 
   const { years, artistNames, worksByYearAndArtist } = organizeWorksByYear();
+
+  const handleRemoveArtistFromTable = (artistIndex: number) => {
+    const artistToRemove = selectedArtists[artistIndex];
+    if (artistToRemove) {
+      handleRemoveArtist(artistToRemove.id);
+    }
+  };
 
   return (
     <div>
@@ -77,9 +92,14 @@ export default function Home() {
           <WorksTypeSelector value={worksType} onChange={setWorksType} />
         </div>
         <ArtistList artists={artists} onArtistClick={handleArtistClick} />
-        {selectedArtist && works.length > 0 && (
+        {selectedArtists.length > 0 && (
           <div className="mt-8">
-            <TimelineTable years={years} artistNames={artistNames} worksByYearAndArtist={worksByYearAndArtist} />
+            <TimelineTable
+              years={years}
+              artistNames={artistNames}
+              worksByYearAndArtist={worksByYearAndArtist}
+              onRemoveArtist={handleRemoveArtistFromTable}
+            />
           </div>
         )}
       </main>
