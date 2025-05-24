@@ -9,6 +9,7 @@ import Modal from "../components/common/Modal";
 import { useTimeline } from "../hooks/useTimeline";
 import { useWorkModal } from "../hooks/useWorkModal";
 import type { Work } from "../types/timeline";
+import ScrollToTopButton from "../components/common/ScrollToTopButton";
 
 export default function Home() {
   const {
@@ -87,6 +88,7 @@ export default function Home() {
           )}
         </Modal>
       </main>
+      <ScrollToTopButton />
     </div>
   );
 }
