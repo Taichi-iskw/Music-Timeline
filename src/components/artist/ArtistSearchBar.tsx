@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import type { Artist } from "../../types/timeline";
+import { searchArtists } from "../../services/artistService";
 
 type ArtistSearchBarProps = {
   onSearch: (artists: Artist[]) => void;
@@ -14,8 +15,7 @@ const ArtistSearchBar: React.FC<ArtistSearchBarProps> = ({ onSearch }) => {
     if (!input) return;
     setLoading(true);
     try {
-      const res = await fetch(`/api/search-artist?q=${encodeURIComponent(input)}`);
-      const data = await res.json();
+      const data = await searchArtists(input);
       onSearch(data);
     } catch (e) {
       console.error("Failed to search artist", e);
