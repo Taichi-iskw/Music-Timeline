@@ -23,7 +23,7 @@ const TimelineTable: React.FC<TimelineTableProps> = ({
   onWorkClick,
 }) => (
   <table className="min-w-full border-collapse">
-    <thead>
+    <thead className="sticky top-0 z-20 bg-gray-100">
       <tr>
         <th className="border px-2 py-2 bg-gray-100 w-24">
           <div className="flex items-center justify-center gap-2">

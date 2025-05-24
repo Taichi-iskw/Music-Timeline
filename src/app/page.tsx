@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <div>
       <Header />
-      <main className="pt-20 max-w-6xl mx-auto">
+      <main className="pt-5 max-w-6xl mx-auto">
         <div className="flex items-center gap-4">
           <ArtistSearchBar onSearch={setArtists} />
           <WorksTypeSelector value={worksType} onChange={setWorksType} />
