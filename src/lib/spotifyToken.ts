@@ -1,4 +1,14 @@
+let cachedToken: string | null = null;
+let tokenExpiresAt: number | null = null;
+
 export async function getSpotifyAccessToken() {
+  const now = Date.now();
+
+  // Return cached token if still valid
+  if (cachedToken && tokenExpiresAt && now < tokenExpiresAt) {
+    return { access_token: cachedToken };
+  }
+
   const clientId = process.env.SPOTIFY_CLIENT_ID;
   const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
@@ -21,6 +31,9 @@ export async function getSpotifyAccessToken() {
   }
 
   const tokenJson = await tokenRes.json();
-  // { access_token, token_type, expires_in }
+  // Cache the token and its expiry (1 minute early)
+  cachedToken = tokenJson.access_token;
+  tokenExpiresAt = now + (tokenJson.expires_in - 60) * 1000;
+
   return tokenJson;
 }
