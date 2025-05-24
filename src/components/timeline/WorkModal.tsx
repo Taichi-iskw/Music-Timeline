@@ -1,37 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import type { Work } from "../../types/timeline";
-import Modal from "../common/Modal";
+import SpotifyPlayer from "./SpotifyPlayer";
 
-type WorkModalProps = {
+// Props for the WorkModal component
+// work: the selected work to display
+// onClose: function to close the modal
+const WorkModal: React.FC<{
   work: Work | null;
   onClose: () => void;
-};
+}> = ({ work, onClose }) => {
+  const [isMinimized, setIsMinimized] = useState(false);
 
-// Modal component for displaying work details and Spotify player
-const WorkModal: React.FC<WorkModalProps> = ({ work, onClose }) => {
   if (!work) return null;
 
+  // CSS classes for modal and overlay
+  const modalBase =
+    "fixed z-50 flex flex-col items-center bg-white shadow-lg border border-gray-200 transition-all duration-300";
+  const modalNormal = "top-1/2 left-1/2 w-[520px] max-w-full h-[680px] -translate-x-1/2 -translate-y-1/2 rounded-lg";
+  const modalMin = "bottom-4 left-4 w-[320px] h-[100px] rounded-lg";
+  const overlay = "fixed inset-0 bg-black bg-opacity-40 z-40 transition-opacity duration-300";
+
   return (
-    <Modal open={true} onClose={onClose}>
-      <div className="flex flex-col items-center gap-0 w-[520px] max-w-full">
-        <div className="w-full flex items-center justify-between px-4 py-2">
+    <>
+      {/* Overlay: show only when not minimized */}
+      {!isMinimized && <div className={overlay} onClick={onClose} aria-label="Close modal overlay" />}
+      {/* Modal container: position and size change with state */}
+      <div className={modalBase + " " + (isMinimized ? modalMin : modalNormal)}>
+        {/* Header: release date, minimize, close */}
+        <div className="w-full flex items-center justify-between px-4 py-2 bg-gray-100 rounded-t-lg">
           <span className="text-sm text-gray-600">{work.releaseDate}</span>
-          <button className="text-gray-500 hover:text-gray-800 text-2xl font-bold" onClick={onClose} aria-label="Close">
-            ×
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsMinimized((v) => !v)}
+              className="text-gray-500 hover:text-gray-800 text-lg"
+              aria-label={isMinimized ? "Maximize" : "Minimize"}
+            >
+              ⤢
+            </button>
+            <button onClick={onClose} className="text-gray-500 hover:text-gray-800 text-lg" aria-label="Close">
+              ×
+            </button>
+          </div>
         </div>
-        <iframe
-          src={`https://open.spotify.com/embed/album/${work.id}`}
-          width="100%"
-          height="600"
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          loading="lazy"
-          title="Spotify Player"
-          className="rounded w-full"
-          style={{ border: "none" }}
-        ></iframe>
+        {/* Spotify player area */}
+        <div className="flex-1 flex items-center justify-center w-full h-full">
+          <SpotifyPlayer albumId={work.id} minimized={isMinimized} />
+        </div>
       </div>
-    </Modal>
+    </>
   );
 };
 
