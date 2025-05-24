@@ -2,13 +2,14 @@
 import React from "react";
 import TimelineRow from "./TimelineRow";
 import SortableHeader from "./SortableHeader";
-import type { Work } from "../../types/timeline";
+import type { Work, Artist } from "../../types/timeline";
 import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
 type TimelineTableProps = {
   years: string[];
   artistNames: string[];
+  artists: Artist[];
   worksByYearAndArtist: Work[][][]; // 3D array: [year][artist][works] - Works organized by year and artist
   onRemoveArtist?: (artistIndex: number) => void;
   onToggleSort?: () => void;
@@ -21,6 +22,7 @@ type TimelineTableProps = {
 const TimelineTable: React.FC<TimelineTableProps> = ({
   years,
   artistNames,
+  artists,
   worksByYearAndArtist,
   onRemoveArtist,
   onToggleSort,
@@ -79,6 +81,7 @@ const TimelineTable: React.FC<TimelineTableProps> = ({
                   id={name}
                   index={idx}
                   name={name}
+                  artist={artists[idx]}
                   onRemove={onRemoveArtist ? () => onRemoveArtist(idx) : undefined}
                 />
               ))}

@@ -54,6 +54,7 @@ export default function Home() {
             <TimelineTable
               years={years}
               artistNames={artistNames}
+              artists={selectedArtists}
               worksByYearAndArtist={worksByYearAndArtist}
               onRemoveArtist={handleRemoveArtistFromTable}
               onToggleSort={handleToggleSort}
