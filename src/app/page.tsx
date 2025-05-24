@@ -5,10 +5,11 @@ import ArtistSearchBar from "../components/artist/ArtistSearchBar";
 import ArtistList from "../components/artist/ArtistList";
 import WorksTypeSelector from "../components/timeline/WorksTypeSelector";
 import TimelineTable from "../components/timeline/TimelineTable";
-import Modal from "../components/common/Modal";
+import WorkModal from "../components/timeline/WorkModal";
 import { useTimeline } from "../hooks/useTimeline";
 import { useWorkModal } from "../hooks/useWorkModal";
 import type { Work } from "../types/timeline";
+import ScrollToTopButton from "../components/common/ScrollToTopButton";
 
 export default function Home() {
   const {
@@ -17,6 +18,7 @@ export default function Home() {
     worksType,
     setWorksType,
     selectedArtists,
+    setSelectedArtists,
     handleArtistClick,
     handleRemoveArtistFromTable,
     handleToggleSort,
@@ -35,7 +37,7 @@ export default function Home() {
   return (
     <div>
       <Header />
-      <main className="pt-20 max-w-6xl mx-auto">
+      <main className="pt-5 max-w-6xl mx-auto">
         <div className="flex items-center gap-4">
           <ArtistSearchBar onSearch={setArtists} />
           <WorksTypeSelector value={worksType} onChange={setWorksType} />
@@ -52,41 +54,21 @@ export default function Home() {
             <TimelineTable
               years={years}
               artistNames={artistNames}
+              artists={selectedArtists}
               worksByYearAndArtist={worksByYearAndArtist}
               onRemoveArtist={handleRemoveArtistFromTable}
               onToggleSort={handleToggleSort}
               isAscending={isAscending}
               onWorkClick={handleWorkClick}
+              onSortEnd={(newOrder) => {
+                setSelectedArtists((prev) => newOrder.map((i) => prev[i]));
+              }}
             />
           </div>
         )}
-        <Modal open={!!selectedWork} onClose={closeModal}>
-          {selectedWork && (
-            <div className="flex flex-col items-center gap-0 w-[520px] max-w-full">
-              <div className="w-full flex items-center justify-between px-4 py-2">
-                <span className="text-sm text-gray-600">{selectedWork.releaseDate}</span>
-                <button
-                  className="text-gray-500 hover:text-gray-800 text-2xl font-bold"
-                  onClick={closeModal}
-                  aria-label="Close"
-                >
-                  ×
-                </button>
-              </div>
-              <iframe
-                src={`https://open.spotify.com/embed/album/${selectedWork.id}`}
-                width="100%"
-                height="600"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-                title="Spotify Player"
-                className="rounded w-full"
-                style={{ border: "none" }}
-              ></iframe>
-            </div>
-          )}
-        </Modal>
+        <WorkModal work={selectedWork} onClose={closeModal} />
       </main>
+      <ScrollToTopButton />
     </div>
   );
 }
