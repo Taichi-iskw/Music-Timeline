@@ -35,6 +35,7 @@ export async function GET(req: NextRequest) {
       name: item.name,
       imageUrl: item.images?.[0]?.url,
       releaseYear: item.release_date?.slice(0, 4),
+      releaseDate: item.release_date || "",
     }));
 
     return NextResponse.json(works);

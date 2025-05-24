@@ -11,6 +11,7 @@ type Work = {
   name: string;
   imageUrl?: string;
   releaseYear: string;
+  releaseDate: string;
 };
 
 type Artist = {
@@ -19,11 +20,16 @@ type Artist = {
   images?: { url: string }[];
 };
 
+type WorkWithArtist = Work & {
+  artistName: string;
+};
+
 export default function Home() {
   const [artists, setArtists] = useState<Artist[]>([]);
   const [worksType, setWorksType] = useState<"single" | "album" | "all">("all");
   const [selectedArtists, setSelectedArtists] = useState<Artist[]>([]);
   const [worksByArtist, setWorksByArtist] = useState<{ [key: string]: Work[] }>({});
+  const [isAscending, setIsAscending] = useState(false);
 
   const handleArtistClick = async (artistId: string) => {
     const artist = artists.find((a) => a.id === artistId);
@@ -48,7 +54,24 @@ export default function Home() {
     });
   };
 
-  // Organize works by year
+  // Sort works by release date
+  const sortWorksByDate = (works: WorkWithArtist[]): WorkWithArtist[] => {
+    return works.sort((a, b) => {
+      // Handle empty release dates
+      if (!a.releaseDate) return 1;
+      if (!b.releaseDate) return -1;
+      return isAscending ? a.releaseDate.localeCompare(b.releaseDate) : b.releaseDate.localeCompare(a.releaseDate);
+    });
+  };
+
+  // Get sorted years from works
+  const getSortedYears = (works: WorkWithArtist[]): string[] => {
+    return Array.from(new Set(works.map((work) => work.releaseYear)))
+      .filter(Boolean) // Remove empty years
+      .sort((a, b) => (isAscending ? a.localeCompare(b) : b.localeCompare(a)));
+  };
+
+  // Organize works by year and artist
   const organizeWorksByYear = () => {
     if (selectedArtists.length === 0) {
       return {
@@ -58,13 +81,29 @@ export default function Home() {
       };
     }
 
-    // Get all works and their years
-    const allWorks = selectedArtists.flatMap((artist) => worksByArtist[artist.id] || []);
-    const years = Array.from(new Set(allWorks.map((work) => work.releaseYear))).sort((a, b) => b.localeCompare(a));
+    // Get all works with artist names
+    const allWorks: WorkWithArtist[] = selectedArtists.flatMap((artist) => {
+      const works = worksByArtist[artist.id] || [];
+      return works.map((work) => ({
+        ...work,
+        artistName: artist.name,
+      }));
+    });
+
+    // Sort works by release date
+    const sortedWorks = sortWorksByDate(allWorks);
+
+    // Get sorted years
+    const years = getSortedYears(sortedWorks);
 
     // Create the 3D array structure
     const worksByYearAndArtist = years.map((year) =>
-      selectedArtists.map((artist) => (worksByArtist[artist.id] || []).filter((work) => work.releaseYear === year))
+      selectedArtists.map((artist) => {
+        const worksInYear = sortedWorks
+          .filter((work) => work.releaseYear === year && work.artistName === artist.name)
+          .map(({ artistName, ...work }) => work); // Remove artistName from the work object
+        return worksInYear;
+      })
     );
 
     return {
@@ -83,6 +122,10 @@ export default function Home() {
     }
   };
 
+  const handleToggleSort = () => {
+    setIsAscending((prev) => !prev);
+  };
+
   return (
     <div>
       <Header />
@@ -99,6 +142,8 @@ export default function Home() {
               artistNames={artistNames}
               worksByYearAndArtist={worksByYearAndArtist}
               onRemoveArtist={handleRemoveArtistFromTable}
+              onToggleSort={handleToggleSort}
+              isAscending={isAscending}
             />
           </div>
         )}
