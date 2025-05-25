@@ -44,17 +44,17 @@ const TimelineTable: React.FC<TimelineTableProps> = ({
 
   return (
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <div className="timeline-table">
+      <div className="timeline-table overflow-x-auto">
         <table className="min-w-full border-collapse">
-          <thead className="timeline-header">
+          <thead className="timeline-header sticky top-0 z-10">
             <tr>
-              <th className="border-b border-border px-4 py-3 text-left text-sm font-medium text-muted-foreground w-24">
-                <div className="flex items-center justify-center gap-2 group">
+              <th className="border-b border-border px-2 py-3 text-left text-sm font-medium text-muted-foreground w-12 bg-background">
+                <div className="flex items-center justify-center gap-1 group">
                   <span className="group-hover:text-foreground transition-colors">Year</span>
                   {onToggleSort && (
                     <button
                       onClick={onToggleSort}
-                      className="text-muted-foreground hover:text-foreground transition-colors p-1 rounded-full hover:bg-muted"
+                      className="text-muted-foreground hover:text-foreground transition-colors p-0.5 rounded-full hover:bg-muted"
                       aria-label={isAscending ? "Sort descending" : "Sort ascending"}
                     >
                       <svg
@@ -67,7 +67,7 @@ const TimelineTable: React.FC<TimelineTableProps> = ({
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        className={`w-4 h-4 transition-transform ${!isAscending ? "rotate-180" : ""}`}
+                        className={`w-3 h-3 transition-transform ${!isAscending ? "rotate-180" : ""}`}
                       >
                         <path d="m6 9 6 6 6-6" />
                       </svg>

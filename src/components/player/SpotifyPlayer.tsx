@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import type { SpotifyPlayerProps } from "../../types/components";
 
 // SpotifyPlayer renders a Spotify embed iframe for an album
-const SpotifyPlayer: React.FC<SpotifyPlayerProps> = ({ albumId, minimized }) => {
+const SpotifyPlayer: React.FC<SpotifyPlayerProps> = ({ albumId }) => {
   const [isLoading, setIsLoading] = useState(true);
   const spotifyUrl = `https://open.spotify.com/embed/album/${albumId}`;
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center">
+    <div className="relative w-full h-full">
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-background/95">
           <div className="w-8 h-8 border-4 border-gray-200 border-t-gray-600 rounded-full animate-spin"></div>
@@ -15,12 +15,12 @@ const SpotifyPlayer: React.FC<SpotifyPlayerProps> = ({ albumId, minimized }) => 
       )}
       <iframe
         src={spotifyUrl}
-        width={minimized ? "300" : "100%"}
-        height={minimized ? "80" : "680"}
+        width="100%"
+        height="100%"
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
         title="Spotify Player"
-        className={`rounded ${minimized ? "" : "w-full"}`}
+        className="w-full h-full"
         style={{ border: "none" }}
         onLoad={() => setIsLoading(false)}
       ></iframe>

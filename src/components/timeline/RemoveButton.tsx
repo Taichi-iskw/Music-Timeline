@@ -7,7 +7,7 @@ interface RemoveButtonProps {
 const RemoveButton: React.FC<RemoveButtonProps> = ({ onRemove }) => (
   <button
     onClick={onRemove}
-    className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive transition-all text-sm p-1.5 rounded-full hover:bg-destructive/10"
+    className="text-muted-foreground hover:text-destructive transition-all text-sm p-1.5 rounded-full hover:bg-destructive/10"
     aria-label="Remove artist"
   >
     <svg

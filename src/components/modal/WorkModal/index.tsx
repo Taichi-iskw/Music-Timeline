@@ -3,7 +3,7 @@ import { useDraggable } from "@dnd-kit/core";
 import { useDragPosition } from "../../providers/DndProvider";
 import SpotifyPlayer from "../../player/SpotifyPlayer";
 import Header from "./Header";
-import { MODAL_DIMENSIONS, MODAL_POSITIONS, modalStyles } from "./styles";
+import { MODAL_POSITIONS, modalStyles } from "./styles";
 import type { WorkModalProps } from "../../../types/components";
 
 const WorkModal: React.FC<WorkModalProps> = ({ work, onClose }) => {
@@ -31,7 +31,6 @@ const WorkModal: React.FC<WorkModalProps> = ({ work, onClose }) => {
   if (!work) return null;
 
   // Dynamic style for modal position/size
-  const dimensions = isMinimized ? MODAL_DIMENSIONS.MINIMIZED : MODAL_DIMENSIONS.MAXIMIZED;
   const positions = isMinimized ? MODAL_POSITIONS.MINIMIZED : MODAL_POSITIONS.MAXIMIZED;
   const translate = isMinimized
     ? transform
@@ -57,17 +56,17 @@ const WorkModal: React.FC<WorkModalProps> = ({ work, onClose }) => {
           ...positions,
           transform: translate,
           willChange: "transform",
+          touchAction: "none",
         }}
-        className={`transition-transform duration-75 ease-linear ${
-          isMinimized ? "p-0" : "max-w-full p-0"
-        } rounded-2xl shadow-xl bg-background border border-border z-50`}
+        className={`${!transform ? "transition-all duration-300 ease-in-out" : ""} ${
+          isMinimized ? "p-0" : modalStyles.container.base
+        } rounded-2xl shadow-xl border border-border z-50 overflow-hidden bg-transparent`}
       >
         {/* Size change container */}
         <div
-          style={{
-            ...dimensions,
-          }}
-          className="w-full h-full transition-[width,height] duration-200 ease-out flex flex-col items-center"
+          className={`w-full h-full ${
+            !transform ? "transition-all duration-300 ease-in-out" : ""
+          } flex flex-col items-center overflow-hidden bg-transparent ${isMinimized ? "w-[300px]" : ""}`}
         >
           <Header
             releaseDate={work.releaseDate}
@@ -78,11 +77,7 @@ const WorkModal: React.FC<WorkModalProps> = ({ work, onClose }) => {
             dragListeners={listeners}
           />
           {/* Spotify player area */}
-          <div
-            className={`${modalStyles.player.base} ${
-              isMinimized ? modalStyles.player.minimized : ""
-            } w-full h-full flex-1 flex items-center justify-center`}
-          >
+          <div className={`w-full ${isMinimized ? "h-[80px]" : "flex-1"}`}>
             <SpotifyPlayer albumId={work.id} minimized={isMinimized} />
           </div>
         </div>

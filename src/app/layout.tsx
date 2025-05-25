@@ -31,7 +31,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background font-sans antialiased`}>
         <ThemeProvider>
-          <main className="relative flex min-h-screen flex-col">
+          <main className="relative flex min-h-screen flex-col pt-14 sm:pt-16">
             <DndProvider>{children}</DndProvider>
           </main>
         </ThemeProvider>

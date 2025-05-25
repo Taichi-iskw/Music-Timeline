@@ -1,15 +1,3 @@
-// Modal dimensions
-export const MODAL_DIMENSIONS = {
-  MINIMIZED: {
-    width: 300,
-    height: 100,
-  },
-  MAXIMIZED: {
-    width: 480,
-    height: 720,
-  },
-} as const;
-
 // Modal positions
 export const MODAL_POSITIONS = {
   MINIMIZED: {
@@ -33,11 +21,15 @@ export const modalStyles = {
     alignItems: "center",
   },
   header: {
-    base: "w-full flex items-center justify-between px-4 py-2 bg-secondary rounded-t-lg",
-    minimized: "py-1 h-[32px] cursor-move",
+    base: "w-full flex items-center justify-between px-3 py-2 bg-secondary rounded-t-lg",
+    minimized: "py-2 h-[32px] cursor-move px-2",
   },
   player: {
-    base: "flex-1 flex items-center justify-center w-full h-full p-0",
-    minimized: "h-[68px] p-0",
+    base: "w-full h-full flex-1 flex items-center justify-center p-2 overflow-hidden bg-transparent",
+    minimized: "h-[48px] sm:h-[68px] p-1",
+  },
+  container: {
+    base: "w-[95vw] sm:w-[85vw] md:w-[75vw] lg:w-[480px] h-[85vh] sm:h-[80vh] md:h-[75vh] lg:h-[720px]",
+    minimized: "w-[300px] h-[100px]",
   },
 } as const;
