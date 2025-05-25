@@ -13,7 +13,7 @@ const TimelineTable: React.FC<TimelineTableProps> = ({
   worksByYearAndArtist,
   onRemoveArtist,
   onToggleSort,
-  isAscending = false,
+  isAscending = true,
   onWorkClick,
   onSortEnd,
 }) => {
@@ -67,7 +67,7 @@ const TimelineTable: React.FC<TimelineTableProps> = ({
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        className={`w-4 h-4 transition-transform ${isAscending ? "rotate-180" : ""}`}
+                        className={`w-4 h-4 transition-transform ${!isAscending ? "rotate-180" : ""}`}
                       >
                         <path d="m6 9 6 6 6-6" />
                       </svg>
