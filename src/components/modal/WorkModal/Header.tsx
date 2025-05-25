@@ -1,8 +1,8 @@
 import React from "react";
-import { modalStyles } from "./WorkModal.styles";
-import type { WorkModalHeaderProps } from "../../types/components";
+import { modalStyles } from "./styles";
+import type { WorkModalHeaderProps } from "../../../types/components";
 
-const WorkModalHeader: React.FC<WorkModalHeaderProps> = ({
+const Header: React.FC<WorkModalHeaderProps> = ({
   releaseDate,
   isMinimized,
   onMinimize,
@@ -33,4 +33,4 @@ const WorkModalHeader: React.FC<WorkModalHeaderProps> = ({
   );
 };
 
-export default WorkModalHeader;
+export default Header;
