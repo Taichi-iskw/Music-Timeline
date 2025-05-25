@@ -3,7 +3,7 @@ import React from "react";
 import TimelineRow from "./TimelineRow";
 import SortableHeader from "./SortableHeader";
 import type { TimelineTableProps } from "../../types/components";
-import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, DragEndEvent } from "@dnd-kit/core";
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
 const TimelineTable: React.FC<TimelineTableProps> = ({
@@ -25,20 +25,20 @@ const TimelineTable: React.FC<TimelineTableProps> = ({
   );
 
   // Handle drag end event and update artist order
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    if (active.id !== over?.id) {
-      const oldIndex = artistNames.findIndex((name) => name === active.id);
-      const newIndex = artistNames.findIndex((name) => name === over.id);
-      if (onSortEnd) {
-        // Return new order as array of indices
-        const newOrder = arrayMove(
-          artistNames.map((_, i) => i),
-          oldIndex,
-          newIndex
-        );
-        onSortEnd(newOrder);
-      }
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = artistNames.findIndex((name) => name === active.id);
+    const newIndex = artistNames.findIndex((name) => name === over.id);
+    if (onSortEnd) {
+      // Return new order as array of indices
+      const newOrder = arrayMove(
+        artistNames.map((_, i) => i),
+        oldIndex,
+        newIndex
+      );
+      onSortEnd(newOrder);
     }
   };
 
