@@ -4,7 +4,7 @@ import { useDragPosition } from "../providers/DndProvider";
 import SpotifyPlayer from "./SpotifyPlayer";
 import WorkModalHeader from "./WorkModalHeader";
 import { MODAL_DIMENSIONS, MODAL_POSITIONS, modalStyles } from "./WorkModal.styles";
-import type { WorkModalProps } from "./WorkModal.types";
+import type { WorkModalProps } from "../../types/components";
 
 const WorkModal: React.FC<WorkModalProps> = ({ work, onClose }) => {
   const [isMinimized, setIsMinimized] = useState(false);

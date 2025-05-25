@@ -1,17 +1,8 @@
 import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import type { Artist } from "../../types/timeline";
+import type { SortableHeaderProps } from "../../types/components";
 
-type SortableHeaderProps = {
-  id: string;
-  index: number;
-  name: string;
-  artist: Artist;
-  onRemove?: () => void;
-};
-
-// Component for draggable artist header in timeline table
 const SortableHeader: React.FC<SortableHeaderProps> = ({ id, index, name, artist, onRemove }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
   const style = {

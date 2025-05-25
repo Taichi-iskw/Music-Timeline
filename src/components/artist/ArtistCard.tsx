@@ -1,12 +1,6 @@
 "use client";
 import React from "react";
-
-type ArtistCardProps = {
-  name: string;
-  imageUrl?: string;
-  id: string;
-  onClick?: (id: string) => void;
-};
+import type { ArtistCardProps } from "../../types/components";
 
 const CARD_WIDTH = "w-32 min-w-[160px] max-w-[200px]";
 const IMAGE_HEIGHT = "h-32";

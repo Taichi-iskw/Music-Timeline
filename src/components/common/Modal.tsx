@@ -1,10 +1,5 @@
 import React from "react";
-
-type ModalProps = {
-  open: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
-};
+import type { ModalProps } from "../../types/components";
 
 const Modal: React.FC<ModalProps> = ({ open, onClose, children }) => {
   if (!open) return null;

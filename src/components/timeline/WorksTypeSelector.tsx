@@ -1,11 +1,7 @@
 "use client";
 import React from "react";
 import type { WorksType } from "../../types/timeline";
-
-interface WorksTypeSelectorProps {
-  value: WorksType;
-  onChange: (value: WorksType) => void;
-}
+import type { WorksTypeSelectorProps } from "../../types/components";
 
 const WORKS_TYPE_OPTIONS = [
   {

@@ -1,10 +1,6 @@
 "use client";
 import React, { useState } from "react";
-
-type CarouselProps = {
-  children: React.ReactNode[];
-  pageSize?: number;
-};
+import type { CarouselProps } from "../../types/components";
 
 const Carousel: React.FC<CarouselProps> = ({ children, pageSize = 4 }) => {
   const [page, setPage] = useState(0);

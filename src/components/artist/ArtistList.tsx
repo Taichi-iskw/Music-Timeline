@@ -3,11 +3,7 @@ import React from "react";
 import ArtistCard from "./ArtistCard";
 import Carousel from "../common/Carousel";
 import type { Artist } from "../../types/timeline";
-
-type ArtistListProps = {
-  artists: Artist[];
-  onArtistClick?: (id: string) => void;
-};
+import type { ArtistListProps } from "../../types/components";
 
 const ArtistList: React.FC<ArtistListProps> = ({ artists, onArtistClick }) => (
   <div className="w-full">
