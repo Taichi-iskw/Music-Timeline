@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import type { CarouselProps } from "../../types/components";
 import { measureCardAndGap } from "../../utils/carousel";
-import CarouselGroup from "./CarouselGroup";
 import CarouselArrowButton from "./CarouselArrowButton";
 import CarouselSlider from "./CarouselSlider";
 
@@ -10,7 +9,11 @@ const MAIN_SIZE = 5; // Maximum number of main cards displayed
 const DEFAULT_CARD_WIDTH = 200;
 const DEFAULT_GAP = 24; // gap-6
 
-const Carousel: React.FC<CarouselProps> = ({ children }) => {
+interface CarouselWithResetProps extends CarouselProps {
+  resetKey?: any;
+}
+
+const Carousel: React.FC<CarouselWithResetProps> = ({ children, resetKey }) => {
   const total = children.length;
   const groupCount = Math.ceil(total / MAIN_SIZE);
   const [page, setPage] = useState(0); // page is the group index (0, 1, 2, ...)
@@ -22,7 +25,7 @@ const Carousel: React.FC<CarouselProps> = ({ children }) => {
   // Reset page to 0 when children changes (e.g., after a new search)
   useEffect(() => {
     setPage(0);
-  }, [children]);
+  }, [resetKey]);
 
   // Measure card width and gap
   const measureSizes = useCallback(() => {
@@ -38,10 +41,6 @@ const Carousel: React.FC<CarouselProps> = ({ children }) => {
     window.addEventListener("resize", measureSizes);
     return () => window.removeEventListener("resize", measureSizes);
   }, [measureSizes, children]);
-
-  // Main card index range for current group
-  const mainStart = page * MAIN_SIZE;
-  const mainEnd = Math.min(mainStart + MAIN_SIZE, total);
 
   // Scroll control
   const canPrev = page > 0;
