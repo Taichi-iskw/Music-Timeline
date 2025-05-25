@@ -44,9 +44,9 @@ const TimelineTable: React.FC<TimelineTableProps> = ({
 
   return (
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <div className="overflow-x-auto rounded-lg border border-border bg-card shadow-sm">
+      <div className="timeline-table">
         <table className="min-w-full border-collapse">
-          <thead className="sticky top-0 z-20 bg-muted/50 backdrop-blur supports-[backdrop-filter]:bg-muted/50">
+          <thead className="timeline-header">
             <tr>
               <th className="border-b border-border px-4 py-3 text-left text-sm font-medium text-muted-foreground w-24">
                 <div className="flex items-center justify-center gap-2 group">

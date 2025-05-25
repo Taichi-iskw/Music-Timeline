@@ -60,7 +60,7 @@ const WorkModal: React.FC<WorkModalProps> = ({ work, onClose }) => {
         }}
         className={`transition-transform duration-75 ease-linear ${
           isMinimized ? "p-0" : "max-w-full p-0"
-        } rounded-2xl shadow-xl bg-background/95 border border-border z-50`}
+        } rounded-2xl shadow-xl bg-background border border-border z-50`}
       >
         {/* Size change container */}
         <div

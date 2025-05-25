@@ -33,25 +33,25 @@
     --radius: 0.5rem;
   }
   .dark {
-    --background: 0 0% 3.9%;
+    --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
+    --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
+    --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -93,5 +93,26 @@
 
   .button-secondary {
     @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+  }
+
+  /* Timeline specific styles */
+  .timeline-table {
+    @apply overflow-x-auto rounded-lg border border-border bg-card shadow-sm;
+  }
+
+  .timeline-header {
+    @apply sticky top-0 z-20 bg-muted/50 backdrop-blur supports-[backdrop-filter]:bg-muted/50;
+  }
+
+  .timeline-row {
+    @apply hover:bg-muted/30 transition-colors;
+  }
+
+  .timeline-cell {
+    @apply border-b border-border align-top px-4 py-4;
+  }
+
+  .timeline-year {
+    @apply border-b border-border px-4 py-4 text-center text-sm font-medium text-muted-foreground bg-muted/20 w-24;
   }
 }
