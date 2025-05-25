@@ -1,11 +1,6 @@
 "use client";
 import React from "react";
-
-type WorkCardProps = {
-  name: string;
-  imageUrl?: string;
-  onClick?: () => void;
-};
+import type { WorkCardProps } from "../../types/components";
 
 const WorkCard: React.FC<WorkCardProps> = ({ name, imageUrl, onClick }) => (
   <div className="flex flex-col items-center w-24 cursor-pointer" onClick={onClick}>

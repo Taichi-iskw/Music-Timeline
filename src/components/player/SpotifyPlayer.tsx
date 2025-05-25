@@ -1,10 +1,5 @@
 import React from "react";
-
-// Props for the SpotifyPlayer component
-interface SpotifyPlayerProps {
-  albumId: string;
-  minimized?: boolean;
-}
+import type { SpotifyPlayerProps } from "../../types/components";
 
 // SpotifyPlayer renders a Spotify embed iframe for an album
 const SpotifyPlayer: React.FC<SpotifyPlayerProps> = ({ albumId, minimized }) => {

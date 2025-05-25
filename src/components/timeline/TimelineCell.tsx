@@ -1,12 +1,7 @@
 "use client";
 import React from "react";
 import WorkCard from "./WorkCard";
-import type { Work } from "../../types/timeline";
-
-type TimelineCellProps = {
-  works: Work[];
-  onWorkClick?: (work: Work) => void;
-};
+import type { TimelineCellProps } from "../../types/components";
 
 const TimelineCell: React.FC<TimelineCellProps> = ({ works, onWorkClick }) => (
   <td className="border align-top px-2 py-2">

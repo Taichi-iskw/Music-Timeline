@@ -5,7 +5,7 @@ import ArtistSearchBar from "../components/artist/ArtistSearchBar";
 import ArtistList from "../components/artist/ArtistList";
 import WorksTypeSelector from "../components/timeline/WorksTypeSelector";
 import TimelineTable from "../components/timeline/TimelineTable";
-import WorkModal from "../components/timeline/WorkModal";
+import WorkModal from "../components/modal/WorkModal";
 import { useTimeline } from "../hooks/useTimeline";
 import { useWorkModal } from "../hooks/useWorkModal";
 import type { Work } from "../types/timeline";

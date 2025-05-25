@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from "react";
 import { useDraggable } from "@dnd-kit/core";
-import { useDragPosition } from "../providers/DndProvider";
-import SpotifyPlayer from "./SpotifyPlayer";
-import WorkModalHeader from "./WorkModalHeader";
-import { MODAL_DIMENSIONS, MODAL_POSITIONS, modalStyles } from "./WorkModal.styles";
-import type { WorkModalProps } from "./WorkModal.types";
+import { useDragPosition } from "../../providers/DndProvider";
+import SpotifyPlayer from "../../player/SpotifyPlayer";
+import Header from "./Header";
+import { MODAL_DIMENSIONS, MODAL_POSITIONS, modalStyles } from "./styles";
+import type { WorkModalProps } from "../../../types/components";
 
 const WorkModal: React.FC<WorkModalProps> = ({ work, onClose }) => {
   const [isMinimized, setIsMinimized] = useState(false);
@@ -60,7 +60,7 @@ const WorkModal: React.FC<WorkModalProps> = ({ work, onClose }) => {
         }}
         className={isMinimized ? "p-0" : "max-w-full"}
       >
-        <WorkModalHeader
+        <Header
           releaseDate={work.releaseDate}
           isMinimized={isMinimized}
           onMinimize={handleMinimize}

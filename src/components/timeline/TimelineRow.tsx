@@ -1,13 +1,7 @@
 "use client";
 import React from "react";
 import TimelineCell from "./TimelineCell";
-import type { Work } from "../../types/timeline";
-
-type TimelineRowProps = {
-  year: string;
-  worksByArtist: Work[][]; // Array of works for each artist in this year
-  onWorkClick?: (work: Work) => void;
-};
+import type { TimelineRowProps } from "../../types/components";
 
 const TimelineRow: React.FC<TimelineRowProps> = ({ year, worksByArtist, onWorkClick }) => (
   <tr>

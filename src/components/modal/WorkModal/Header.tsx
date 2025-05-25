@@ -1,16 +1,8 @@
 import React from "react";
-import { modalStyles } from "./WorkModal.styles";
+import { modalStyles } from "./styles";
+import type { WorkModalHeaderProps } from "../../../types/components";
 
-interface WorkModalHeaderProps {
-  releaseDate: string;
-  isMinimized: boolean;
-  onMinimize: (e: React.MouseEvent) => void;
-  onClose: (e: React.MouseEvent) => void;
-  dragAttributes?: Record<string, any>;
-  dragListeners?: Record<string, any>;
-}
-
-const WorkModalHeader: React.FC<WorkModalHeaderProps> = ({
+const Header: React.FC<WorkModalHeaderProps> = ({
   releaseDate,
   isMinimized,
   onMinimize,
@@ -41,4 +33,4 @@ const WorkModalHeader: React.FC<WorkModalHeaderProps> = ({
   );
 };
 
-export default WorkModalHeader;
+export default Header;

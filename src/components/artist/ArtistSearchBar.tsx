@@ -1,12 +1,9 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 import type { Artist } from "../../types/timeline";
+import type { ArtistSearchBarProps } from "../../types/components";
 import { searchArtists } from "../../services/artistService";
 import { useDebounce } from "../../hooks/useDebounce";
-
-type ArtistSearchBarProps = {
-  onSearch: (artists: Artist[]) => void;
-};
 
 const ArtistSearchBar: React.FC<ArtistSearchBarProps> = ({ onSearch }) => {
   const [input, setInput] = useState("");

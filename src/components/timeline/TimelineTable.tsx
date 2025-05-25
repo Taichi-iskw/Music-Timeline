@@ -2,23 +2,10 @@
 import React from "react";
 import TimelineRow from "./TimelineRow";
 import SortableHeader from "./SortableHeader";
-import type { Work, Artist } from "../../types/timeline";
-import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import type { TimelineTableProps } from "../../types/components";
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, DragEndEvent } from "@dnd-kit/core";
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
-type TimelineTableProps = {
-  years: string[];
-  artistNames: string[];
-  artists: Artist[];
-  worksByYearAndArtist: Work[][][]; // 3D array: [year][artist][works] - Works organized by year and artist
-  onRemoveArtist?: (artistIndex: number) => void;
-  onToggleSort?: () => void;
-  isAscending?: boolean;
-  onWorkClick?: (work: Work) => void;
-  onSortEnd?: (newOrder: number[]) => void;
-};
-
-// Main timeline table component with draggable artist headers
 const TimelineTable: React.FC<TimelineTableProps> = ({
   years,
   artistNames,
@@ -38,20 +25,20 @@ const TimelineTable: React.FC<TimelineTableProps> = ({
   );
 
   // Handle drag end event and update artist order
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    if (active.id !== over?.id) {
-      const oldIndex = artistNames.findIndex((name) => name === active.id);
-      const newIndex = artistNames.findIndex((name) => name === over.id);
-      if (onSortEnd) {
-        // Return new order as array of indices
-        const newOrder = arrayMove(
-          artistNames.map((_, i) => i),
-          oldIndex,
-          newIndex
-        );
-        onSortEnd(newOrder);
-      }
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = artistNames.findIndex((name) => name === active.id);
+    const newIndex = artistNames.findIndex((name) => name === over.id);
+    if (onSortEnd) {
+      // Return new order as array of indices
+      const newOrder = arrayMove(
+        artistNames.map((_, i) => i),
+        oldIndex,
+        newIndex
+      );
+      onSortEnd(newOrder);
     }
   };
 
