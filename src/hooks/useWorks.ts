@@ -29,7 +29,8 @@ export function useWorks() {
     artistIds.forEach((artistId) => {
       fetchWorks(artistId);
     });
-  }, [worksType, fetchWorks, worksByArtist]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [worksType]);
 
   const removeWorks = (artistId: string) => {
     setWorksByArtist((prev) => {

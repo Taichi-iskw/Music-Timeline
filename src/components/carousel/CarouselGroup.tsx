@@ -5,13 +5,12 @@ interface CarouselGroupProps {
   groupWidth: number;
   groupIdx: number;
   cardRef?: React.Ref<HTMLDivElement>;
-  groupRef?: React.Ref<HTMLDivElement>;
 }
 
 const CarouselGroup = React.forwardRef<HTMLDivElement, CarouselGroupProps>(
-  ({ children, groupWidth, groupIdx, cardRef, groupRef }) => (
+  ({ children, groupWidth, groupIdx, cardRef }, ref) => (
     <div
-      ref={groupRef}
+      ref={ref}
       className="flex flex-row gap-6 justify-center items-center flex-shrink-0 mx-auto"
       style={{ width: `${groupWidth}px`, maxWidth: `${groupWidth}px` }}
     >
