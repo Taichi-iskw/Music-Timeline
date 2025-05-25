@@ -28,15 +28,12 @@ export const modalStyles = {
     position: "fixed" as const,
     zIndex: 50,
     borderRadius: 12,
-    background: "#fff",
-    boxShadow: "0 4px 24px 0 rgba(0,0,0,0.12)",
-    border: "1px solid #e5e7eb",
     display: "flex",
     flexDirection: "column" as const,
     alignItems: "center",
   },
   header: {
-    base: "w-full flex items-center justify-between px-4 py-2 bg-gray-100 rounded-t-lg",
+    base: "w-full flex items-center justify-between px-4 py-2 bg-secondary rounded-t-lg",
     minimized: "py-1 h-[32px] cursor-move",
   },
   player: {
