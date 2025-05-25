@@ -20,14 +20,14 @@ const Header: React.FC<WorkModalHeaderProps> = ({
       <div className="flex items-center gap-3">
         <button
           onClick={onMinimize}
-          className="text-gray-500 hover:text-gray-800 text-2xl w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors"
+          className="text-gray-500 hover:text-gray-800 text-2xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors"
           aria-label={isMinimized ? "Maximize" : "Minimize"}
         >
           ⤢
         </button>
         <button
           onClick={onClose}
-          className="text-gray-500 hover:text-gray-800 text-2xl w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors"
+          className="text-gray-500 hover:text-red-500 text-2xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-red-50 transition-colors"
           aria-label="Close"
         >
           ×
