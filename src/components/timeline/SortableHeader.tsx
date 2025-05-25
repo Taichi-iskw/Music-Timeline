@@ -12,6 +12,11 @@ const SortableHeader: React.FC<SortableHeaderProps> = ({ id, index, name, artist
     cursor: "grab",
   };
 
+  const handleArtistClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.open(`https://open.spotify.com/artist/${artist.id}`, "_blank");
+  };
+
   return (
     <th
       ref={setNodeRef}
@@ -45,12 +50,17 @@ const SortableHeader: React.FC<SortableHeaderProps> = ({ id, index, name, artist
               <circle cx="15" cy="19" r="1" />
             </svg>
           </div>
-          {artist.images && artist.images[0] && (
-            <div className="relative w-8 h-8 overflow-hidden rounded-full ring-2 ring-border transition-transform group-hover:scale-110">
-              <img src={artist.images[0].url} alt={name} className="w-full h-full object-cover" />
-            </div>
-          )}
-          <span className="font-medium group-hover:text-foreground transition-colors">{name}</span>
+          <div
+            className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={handleArtistClick}
+          >
+            {artist.images && artist.images[0] && (
+              <div className="relative w-8 h-8 overflow-hidden rounded-full ring-2 ring-border transition-transform group-hover:scale-110">
+                <img src={artist.images[0].url} alt={name} className="w-full h-full object-cover" />
+              </div>
+            )}
+            <span className="font-medium group-hover:text-foreground transition-colors">{name}</span>
+          </div>
         </div>
         {onRemove && (
           <button
