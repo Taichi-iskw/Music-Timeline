@@ -34,7 +34,6 @@ export const modalStyles = {
     display: "flex",
     flexDirection: "column" as const,
     alignItems: "center",
-    transition: "all 0.3s cubic-bezier(.4,2,.6,1)",
   },
   header: {
     base: "w-full flex items-center justify-between px-4 py-2 bg-gray-100 rounded-t-lg",

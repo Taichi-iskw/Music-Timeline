@@ -54,29 +54,37 @@ const WorkModal: React.FC<WorkModalProps> = ({ work, onClose }) => {
         ref={isMinimized ? setNodeRef : undefined}
         style={{
           ...modalStyles.base,
-          ...dimensions,
           ...positions,
           transform: translate,
+          willChange: "transform",
         }}
-        className={`transition-all duration-300 ${
+        className={`transition-transform duration-75 ease-linear ${
           isMinimized ? "p-0" : "max-w-full p-0"
-        } rounded-2xl shadow-xl bg-background/95 border border-border flex flex-col items-center z-50`}
+        } rounded-2xl shadow-xl bg-background/95 border border-border z-50`}
       >
-        <Header
-          releaseDate={work.releaseDate}
-          isMinimized={isMinimized}
-          onMinimize={handleMinimize}
-          onClose={handleClose}
-          dragAttributes={attributes}
-          dragListeners={listeners}
-        />
-        {/* Spotify player area */}
+        {/* Size change container */}
         <div
-          className={`${modalStyles.player.base} ${
-            isMinimized ? modalStyles.player.minimized : ""
-          } w-full h-full flex-1 flex items-center justify-center`}
+          style={{
+            ...dimensions,
+          }}
+          className="w-full h-full transition-[width,height] duration-200 ease-out flex flex-col items-center"
         >
-          <SpotifyPlayer albumId={work.id} minimized={isMinimized} />
+          <Header
+            releaseDate={work.releaseDate}
+            isMinimized={isMinimized}
+            onMinimize={handleMinimize}
+            onClose={handleClose}
+            dragAttributes={attributes}
+            dragListeners={listeners}
+          />
+          {/* Spotify player area */}
+          <div
+            className={`${modalStyles.player.base} ${
+              isMinimized ? modalStyles.player.minimized : ""
+            } w-full h-full flex-1 flex items-center justify-center`}
+          >
+            <SpotifyPlayer albumId={work.id} minimized={isMinimized} />
+          </div>
         </div>
       </div>
     </>
