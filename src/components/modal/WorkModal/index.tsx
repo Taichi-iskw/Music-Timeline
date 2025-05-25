@@ -56,16 +56,17 @@ const WorkModal: React.FC<WorkModalProps> = ({ work, onClose }) => {
           ...positions,
           transform: translate,
           willChange: "transform",
+          touchAction: "none",
         }}
-        className={`transition-all duration-300 ease-in-out ${
+        className={`${!transform ? "transition-all duration-300 ease-in-out" : ""} ${
           isMinimized ? "p-0" : modalStyles.container.base
         } rounded-2xl shadow-xl border border-border z-50 overflow-hidden bg-transparent`}
       >
         {/* Size change container */}
         <div
-          className={`w-full h-full transition-all duration-300 ease-in-out flex flex-col items-center overflow-hidden bg-transparent ${
-            isMinimized ? "w-[300px]" : ""
-          }`}
+          className={`w-full h-full ${
+            !transform ? "transition-all duration-300 ease-in-out" : ""
+          } flex flex-col items-center overflow-hidden bg-transparent ${isMinimized ? "w-[300px]" : ""}`}
         >
           <Header
             releaseDate={work.releaseDate}
