@@ -26,15 +26,15 @@ const WORKS_TYPE_OPTIONS = [
 
 const WorksTypeSelector: React.FC<WorksTypeSelectorProps> = ({ value, onChange }) => {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex flex-wrap items-center gap-2">
       {WORKS_TYPE_OPTIONS.map((option) => (
         <button
           key={option.value}
           onClick={() => onChange(option.value as WorksType)}
-          className={`flex items-center gap-2 px-3 py-2 rounded-lg ${
+          className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm sm:text-base ${
             value === option.value
-              ? "bg-gray-100 text-gray-900 border border-gray-300"
-              : "bg-white text-gray-600 border border-gray-200"
+              ? "bg-primary text-primary-foreground"
+              : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
           }`}
           title={option.description}
         >

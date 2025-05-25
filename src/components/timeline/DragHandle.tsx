@@ -11,7 +11,7 @@ const DragHandle: React.FC<DragHandleProps> = ({ attributes, listeners }) => (
   <div
     {...attributes}
     {...listeners}
-    className="cursor-grab select-none p-2 -m-2 rounded-md hover:bg-muted/80 transition-colors opacity-0 group-hover:opacity-100"
+    className="cursor-grab select-none p-2 -m-2 rounded-md hover:bg-muted/80 transition-colors"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"

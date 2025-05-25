@@ -8,9 +8,8 @@ const ArtistSearchBar: React.FC<ArtistSearchBarProps> = ({ onSearch }) => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [isButtonHovered, setIsButtonHovered] = useState(false);
-  const debouncedInput = useDebounce(input, 300); // 300ms debounce
+  const debouncedInput = useDebounce(input, 300);
 
-  // Common search handler
   const handleSearch = useCallback(
     async (query: string) => {
       if (!query) {
@@ -31,25 +30,23 @@ const ArtistSearchBar: React.FC<ArtistSearchBarProps> = ({ onSearch }) => {
     [onSearch]
   );
 
-  // Auto search on input
   useEffect(() => {
     if (debouncedInput) {
       handleSearch(debouncedInput);
     }
   }, [debouncedInput, handleSearch]);
 
-  // Immediate search on button click
   const handleButtonClick = () => {
     handleSearch(input);
   };
 
   return (
-    <div className="flex items-center gap-3 w-full max-w-2xl">
-      <div className="flex items-center gap-3">
+    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full">
+      <div className="flex items-center gap-3 w-full">
         <label htmlFor="artist-name" className="text-base font-medium text-muted-foreground whitespace-nowrap">
           Artist
         </label>
-        <div className="relative w-[300px]">
+        <div className="relative flex-1">
           <input
             id="artist-name"
             type="text"
