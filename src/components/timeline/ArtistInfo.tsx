@@ -14,7 +14,7 @@ const ArtistInfo: React.FC<ArtistInfoProps> = ({ name, artist }) => {
 
   return (
     <div
-      className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+      className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-80 transition-opacity w-full"
       onClick={handleArtistClick}
     >
       {artist.images && artist.images[0] && (

@@ -21,10 +21,12 @@ const SortableHeader: React.FC<SortableHeaderProps> = ({ id, index, name, artist
       style={style}
       className="border-b border-border px-4 py-3 text-left text-sm font-medium text-muted-foreground bg-muted/50 backdrop-blur supports-[backdrop-filter]:bg-muted/50"
     >
-      <div className="flex items-center justify-between gap-3 group">
-        <div className="flex items-center gap-3">
-          <DragHandle attributes={attributes} listeners={listeners} />
-          <ArtistInfo name={name} artist={artist} />
+      <div className="flex items-center justify-between gap-3 group relative">
+        <div className="flex-1 flex items-center justify-center">
+          <div className="flex items-center gap-2">
+            <DragHandle attributes={attributes} listeners={listeners} />
+            <ArtistInfo name={name} artist={artist} />
+          </div>
         </div>
         {onRemove && <RemoveButton onRemove={onRemove} />}
       </div>
