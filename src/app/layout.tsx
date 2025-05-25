@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Music Timeline",
   description: "Your personal music journey timeline",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
