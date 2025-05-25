@@ -15,7 +15,7 @@ export interface ApiResponse<T> {
 }
 
 // Event handler types
-export type EventHandler<T = any> = (event: T) => void;
+export type EventHandler<T = unknown> = (event: T) => void;
 
 export type MouseEventHandler = EventHandler<React.MouseEvent>;
 

@@ -9,7 +9,7 @@ interface CarouselGroupProps {
 }
 
 const CarouselGroup = React.forwardRef<HTMLDivElement, CarouselGroupProps>(
-  ({ children, groupWidth, groupIdx, cardRef, groupRef }, ref) => (
+  ({ children, groupWidth, groupIdx, cardRef, groupRef }) => (
     <div
       ref={groupRef}
       className="flex flex-row gap-6 justify-center items-center flex-shrink-0 mx-auto"

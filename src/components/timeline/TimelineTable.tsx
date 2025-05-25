@@ -80,7 +80,6 @@ const TimelineTable: React.FC<TimelineTableProps> = ({
                   <SortableHeader
                     key={name}
                     id={name}
-                    index={idx}
                     name={name}
                     artist={artists[idx]}
                     onRemove={onRemoveArtist ? () => onRemoveArtist(idx) : undefined}

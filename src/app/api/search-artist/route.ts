@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     });
     const data = await res.json();
     return NextResponse.json(data.artists.items);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error(error);
     return NextResponse.json({ error: "Failed to fetch artists" }, { status: 500 });
   }

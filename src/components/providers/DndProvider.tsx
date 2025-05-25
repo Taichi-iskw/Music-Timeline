@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  DndContext,
-  DragEndEvent,
-  DragOverlay,
-  DragStartEvent,
-  useSensor,
-  useSensors,
-  PointerSensor,
-} from "@dnd-kit/core";
+import { DndContext, DragEndEvent, useSensor, useSensors, PointerSensor } from "@dnd-kit/core";
 import { ReactNode, useState, createContext, useContext } from "react";
 
 // Create context for drag position
@@ -28,7 +20,6 @@ export const useDragPosition = () => {
 };
 
 export default function DndProvider({ children }: { children: ReactNode }) {
-  const [activeId, setActiveId] = useState<string | null>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const sensors = useSensors(
@@ -39,8 +30,8 @@ export default function DndProvider({ children }: { children: ReactNode }) {
     })
   );
 
-  function handleDragStart(event: DragStartEvent) {
-    setActiveId(event.active.id as string);
+  function handleDragStart() {
+    // setActiveId(event.active.id as string);
   }
 
   function handleDragEnd(event: DragEndEvent) {
@@ -49,7 +40,7 @@ export default function DndProvider({ children }: { children: ReactNode }) {
       x: prev.x + delta.x,
       y: prev.y + delta.y,
     }));
-    setActiveId(null);
+    // setActiveId(null);
   }
 
   return (

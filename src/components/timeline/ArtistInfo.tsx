@@ -1,5 +1,6 @@
 import React from "react";
 import type { Artist } from "../../types/timeline";
+import Image from "next/image";
 
 interface ArtistInfoProps {
   name: string;
@@ -19,7 +20,7 @@ const ArtistInfo: React.FC<ArtistInfoProps> = ({ name, artist }) => {
     >
       {artist.images && artist.images[0] && (
         <div className="relative w-8 h-8 overflow-hidden rounded-full ring-2 ring-border transition-transform group-hover:scale-110">
-          <img src={artist.images[0].url} alt={name} className="w-full h-full object-cover" />
+          <Image src={artist.images[0].url} alt={name} width={32} height={32} className="w-full h-full object-cover" />
         </div>
       )}
       <span className="font-medium group-hover:text-foreground transition-colors">{name}</span>
