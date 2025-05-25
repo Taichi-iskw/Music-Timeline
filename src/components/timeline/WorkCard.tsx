@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import type { WorkCardProps } from "../../types/components";
+import Image from "next/image";
 
 const WorkCard: React.FC<WorkCardProps> = ({ name, imageUrl, onClick }) => (
   <div
@@ -9,9 +10,11 @@ const WorkCard: React.FC<WorkCardProps> = ({ name, imageUrl, onClick }) => (
   >
     {imageUrl ? (
       <div className="relative w-24 h-24 overflow-hidden rounded-lg shadow-sm">
-        <img
+        <Image
           src={imageUrl}
           alt={name}
+          width={96}
+          height={96}
           className="w-full h-full object-cover transition-transform group-hover:scale-110"
         />
       </div>

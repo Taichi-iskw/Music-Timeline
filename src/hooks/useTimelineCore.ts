@@ -8,11 +8,10 @@ export function useTimelineCore() {
     selectedArtists,
     setSelectedArtists,
     handleArtistClick: baseHandleArtistClick,
-    handleRemoveArtist,
     handleRemoveArtistFromTable,
   } = useArtists();
 
-  const { worksType, setWorksType, worksByArtist, fetchWorks, removeWorks } = useWorks();
+  const { worksType, setWorksType, worksByArtist, fetchWorks } = useWorks();
 
   const { isAscending, handleToggleSort, organizeWorksByYear } = useTimelineSort();
 
@@ -20,12 +19,6 @@ export function useTimelineCore() {
   const handleArtistClick = async (artist: Artist) => {
     baseHandleArtistClick(artist);
     await fetchWorks(artist.id);
-  };
-
-  // Extend artist removal logic to clean up works
-  const handleRemoveArtistWithWorks = (artistId: string) => {
-    handleRemoveArtist(artistId);
-    removeWorks(artistId);
   };
 
   // Handle works type change

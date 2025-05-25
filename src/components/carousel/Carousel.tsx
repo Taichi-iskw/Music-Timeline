@@ -10,7 +10,7 @@ const DEFAULT_CARD_WIDTH = 200;
 const DEFAULT_GAP = 24; // gap-6
 
 interface CarouselWithResetProps extends CarouselProps {
-  resetKey?: any;
+  resetKey?: unknown;
 }
 
 const Carousel: React.FC<CarouselWithResetProps> = ({ children, resetKey }) => {
@@ -65,7 +65,6 @@ const Carousel: React.FC<CarouselWithResetProps> = ({ children, resetKey }) => {
         groupCount={groupCount}
         groupWidth={groupWidth}
         slidePx={slidePx}
-        groupRef={groupRef}
         cardRef={cardRef}
         MAIN_SIZE={MAIN_SIZE}
       >

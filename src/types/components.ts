@@ -1,4 +1,6 @@
 import type { Work, Artist, WorksType } from "./timeline";
+import type { DraggableAttributes } from "@dnd-kit/core";
+import type { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 
 // Modal related types
 export interface ModalProps {
@@ -22,8 +24,8 @@ export interface WorkModalHeaderProps {
   isMinimized: boolean;
   onMinimize: (e: React.MouseEvent) => void;
   onClose: (e: React.MouseEvent) => void;
-  dragAttributes?: Record<string, any>;
-  dragListeners?: Record<string, any>;
+  dragAttributes?: DraggableAttributes;
+  dragListeners?: SyntheticListenerMap;
 }
 
 // Timeline related types

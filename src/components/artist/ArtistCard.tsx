@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import type { ArtistCardProps } from "../../types/components";
+import Image from "next/image";
 
 const CARD_WIDTH = "w-32 min-w-[160px] max-w-[200px]";
 const IMAGE_HEIGHT = "h-32";
@@ -13,9 +14,11 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ name, imageUrl, id, onClick }) 
   >
     <div className={`w-full ${IMAGE_HEIGHT} overflow-hidden rounded-t-lg`}>
       {imageUrl ? (
-        <img
+        <Image
           src={imageUrl}
           alt={name}
+          width={200}
+          height={200}
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
       ) : (

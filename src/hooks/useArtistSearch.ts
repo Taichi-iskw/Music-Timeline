@@ -13,7 +13,7 @@ export function useArtistSearch() {
     try {
       const result = await searchArtists(query);
       setArtists(result);
-    } catch (e) {
+    } catch {
       setError("Failed to search artist");
       setArtists([]);
     } finally {

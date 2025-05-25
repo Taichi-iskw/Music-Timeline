@@ -6,7 +6,7 @@ import DragHandle from "./DragHandle";
 import ArtistInfo from "./ArtistInfo";
 import RemoveButton from "./RemoveButton";
 
-const SortableHeader: React.FC<SortableHeaderProps> = ({ id, index, name, artist, onRemove }) => {
+const SortableHeader: React.FC<Omit<SortableHeaderProps, "index">> = ({ id, name, artist, onRemove }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
   const style = {
     transform: CSS.Transform.toString(transform),

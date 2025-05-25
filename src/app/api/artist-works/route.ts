@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
   try {
     const { access_token } = await getSpotifyAccessToken();
     let url = `https://api.spotify.com/v1/artists/${artistId}/albums?include_groups=${includeGroups}&limit=50`;
-    let allItems: any[] = [];
+    let allItems: { id: string; name: string; images?: { url: string }[]; release_date?: string }[] = [];
 
     while (url) {
       const res = await fetch(url, {
@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Extract only the necessary information
-    const works = allItems.map((item: any) => ({
+    const works = allItems.map((item) => ({
       id: item.id,
       name: item.name,
       imageUrl: item.images?.[0]?.url,
@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
     }));
 
     return NextResponse.json(works);
-  } catch (e) {
+  } catch {
     return NextResponse.json({ error: "Failed to fetch works" }, { status: 500 });
   }
 }

@@ -37,7 +37,10 @@ export function useTimelineSort() {
       selectedArtists.map((artist) => {
         const worksInYear = sortedWorks
           .filter((work) => work.releaseYear === year && work.artistName === artist.name)
-          .map(({ artistName, ...work }) => work);
+          .map(({ artistName, ...work }) => {
+            void artistName;
+            return work;
+          });
         return worksInYear;
       })
     );
