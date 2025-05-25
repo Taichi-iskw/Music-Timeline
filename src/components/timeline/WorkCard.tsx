@@ -4,11 +4,11 @@ import type { WorkCardProps } from "../../types/components";
 
 const WorkCard: React.FC<WorkCardProps> = ({ name, imageUrl, onClick }) => (
   <div
-    className="group flex flex-col items-center w-24 cursor-pointer transition-transform hover:scale-105"
+    className="group flex flex-col items-center w-28 cursor-pointer transition-transform hover:scale-105"
     onClick={onClick}
   >
     {imageUrl ? (
-      <div className="relative w-20 h-20 overflow-hidden rounded-lg shadow-sm">
+      <div className="relative w-24 h-24 overflow-hidden rounded-lg shadow-sm">
         <img
           src={imageUrl}
           alt={name}
@@ -16,7 +16,7 @@ const WorkCard: React.FC<WorkCardProps> = ({ name, imageUrl, onClick }) => (
         />
       </div>
     ) : (
-      <div className="w-20 h-20 bg-muted rounded-lg shadow-sm flex items-center justify-center">
+      <div className="w-24 h-24 bg-muted rounded-lg shadow-sm flex items-center justify-center">
         <span className="text-muted-foreground text-xs">No Image</span>
       </div>
     )}
