@@ -94,13 +94,7 @@ const Carousel: React.FC<CarouselWithResetProps> = ({ children, resetKey }) => {
         <CarouselArrowButton direction="left" onClick={handlePrev} disabled={!canPrev} ariaLabel="Previous" />
       </div>
       <div className="w-full flex justify-center">
-        <CarouselSlider
-          groupCount={groupCount}
-          groupWidth={groupWidth}
-          slidePx={slidePx}
-          cardRef={cardRef}
-          MAIN_SIZE={mainSize}
-        >
+        <CarouselSlider groupCount={groupCount} slidePx={slidePx} cardRef={cardRef} MAIN_SIZE={mainSize}>
           {children}
         </CarouselSlider>
       </div>
