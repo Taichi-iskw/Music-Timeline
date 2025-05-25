@@ -6,7 +6,7 @@ import type { Artist } from "../../types/timeline";
 import type { ArtistListProps } from "../../types/components";
 
 const ArtistList: React.FC<ArtistListProps> = ({ artists, onArtistClick }) => (
-  <div className="w-full">
+  <div className="w-full bg-muted/30 rounded-lg p-4 backdrop-blur supports-[backdrop-filter]:bg-muted/30">
     <Carousel>
       {artists.map((artist) => (
         <ArtistCard
