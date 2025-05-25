@@ -5,8 +5,8 @@ export const MODAL_DIMENSIONS = {
     height: 100,
   },
   MAXIMIZED: {
-    width: 520,
-    height: 680,
+    width: 480,
+    height: 720,
   },
 } as const;
 
@@ -34,14 +34,13 @@ export const modalStyles = {
     display: "flex",
     flexDirection: "column" as const,
     alignItems: "center",
-    transition: "all 0.3s cubic-bezier(.4,2,.6,1)",
   },
   header: {
     base: "w-full flex items-center justify-between px-4 py-2 bg-gray-100 rounded-t-lg",
     minimized: "py-1 h-[32px] cursor-move",
   },
   player: {
-    base: "flex-1 flex items-center justify-center w-full h-full",
+    base: "flex-1 flex items-center justify-center w-full h-full p-0",
     minimized: "h-[68px] p-0",
   },
 } as const;

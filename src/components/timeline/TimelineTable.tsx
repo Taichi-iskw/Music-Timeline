@@ -13,7 +13,7 @@ const TimelineTable: React.FC<TimelineTableProps> = ({
   worksByYearAndArtist,
   onRemoveArtist,
   onToggleSort,
-  isAscending = false,
+  isAscending = true,
   onWorkClick,
   onSortEnd,
 }) => {
@@ -44,48 +44,63 @@ const TimelineTable: React.FC<TimelineTableProps> = ({
 
   return (
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <table className="min-w-full border-collapse">
-        <thead className="sticky top-0 z-20 bg-gray-100">
-          <tr>
-            <th className="border px-2 py-2 bg-gray-100 w-24">
-              <div className="flex items-center justify-center gap-2">
-                <span>Year</span>
-                {onToggleSort && (
-                  <button
-                    onClick={onToggleSort}
-                    className="text-gray-500 hover:text-gray-700"
-                    aria-label={isAscending ? "Sort descending" : "Sort ascending"}
-                  >
-                    {isAscending ? "↑" : "↓"}
-                  </button>
-                )}
-              </div>
-            </th>
-            <SortableContext items={artistNames} strategy={verticalListSortingStrategy}>
-              {artistNames.map((name, idx) => (
-                <SortableHeader
-                  key={name}
-                  id={name}
-                  index={idx}
-                  name={name}
-                  artist={artists[idx]}
-                  onRemove={onRemoveArtist ? () => onRemoveArtist(idx) : undefined}
-                />
-              ))}
-            </SortableContext>
-          </tr>
-        </thead>
-        <tbody>
-          {years.map((year, yearIdx) => (
-            <TimelineRow
-              key={year}
-              year={year}
-              worksByArtist={worksByYearAndArtist[yearIdx]}
-              onWorkClick={onWorkClick}
-            />
-          ))}
-        </tbody>
-      </table>
+      <div className="overflow-x-auto rounded-lg border border-border bg-card shadow-sm">
+        <table className="min-w-full border-collapse">
+          <thead className="sticky top-0 z-20 bg-muted/50 backdrop-blur supports-[backdrop-filter]:bg-muted/50">
+            <tr>
+              <th className="border-b border-border px-4 py-3 text-left text-sm font-medium text-muted-foreground w-24">
+                <div className="flex items-center justify-center gap-2 group">
+                  <span className="group-hover:text-foreground transition-colors">Year</span>
+                  {onToggleSort && (
+                    <button
+                      onClick={onToggleSort}
+                      className="text-muted-foreground hover:text-foreground transition-colors p-1 rounded-full hover:bg-muted"
+                      aria-label={isAscending ? "Sort descending" : "Sort ascending"}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className={`w-4 h-4 transition-transform ${!isAscending ? "rotate-180" : ""}`}
+                      >
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              </th>
+              <SortableContext items={artistNames} strategy={verticalListSortingStrategy}>
+                {artistNames.map((name, idx) => (
+                  <SortableHeader
+                    key={name}
+                    id={name}
+                    index={idx}
+                    name={name}
+                    artist={artists[idx]}
+                    onRemove={onRemoveArtist ? () => onRemoveArtist(idx) : undefined}
+                  />
+                ))}
+              </SortableContext>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {years.map((year, yearIdx) => (
+              <TimelineRow
+                key={year}
+                year={year}
+                worksByArtist={worksByYearAndArtist[yearIdx]}
+                onWorkClick={onWorkClick}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
     </DndContext>
   );
 };

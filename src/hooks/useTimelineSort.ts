@@ -3,7 +3,7 @@ import type { WorkWithArtist } from "../types/timeline";
 import { sortWorksByDate, getSortedYears } from "../utils/timelineSort";
 
 export function useTimelineSort() {
-  const [isAscending, setIsAscending] = useState(false);
+  const [isAscending, setIsAscending] = useState(true);
 
   const handleToggleSort = () => {
     setIsAscending((prev) => !prev);

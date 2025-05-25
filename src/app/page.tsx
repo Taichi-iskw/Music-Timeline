@@ -42,13 +42,15 @@ export default function Home() {
           <ArtistSearchBar onSearch={setArtists} />
           <WorksTypeSelector value={worksType} onChange={setWorksType} />
         </div>
-        <ArtistList
-          artists={artists}
-          onArtistClick={(id) => {
-            const artist = artists.find((a) => a.id === id);
-            if (artist) handleArtistClick(artist);
-          }}
-        />
+        <div className="mt-8">
+          <ArtistList
+            artists={artists}
+            onArtistClick={(id) => {
+              const artist = artists.find((a) => a.id === id);
+              if (artist) handleArtistClick(artist);
+            }}
+          />
+        </div>
         {selectedArtists.length > 0 && (
           <div className="mt-8">
             <TimelineTable

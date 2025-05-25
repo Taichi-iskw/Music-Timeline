@@ -44,7 +44,7 @@ const WorkModal: React.FC<WorkModalProps> = ({ work, onClose }) => {
       {/* Overlay: show only when not minimized */}
       {!isMinimized && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-40 z-40 transition-opacity duration-300"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300"
           onClick={onClose}
           aria-label="Close modal overlay"
         />
@@ -54,23 +54,37 @@ const WorkModal: React.FC<WorkModalProps> = ({ work, onClose }) => {
         ref={isMinimized ? setNodeRef : undefined}
         style={{
           ...modalStyles.base,
-          ...dimensions,
           ...positions,
           transform: translate,
+          willChange: "transform",
         }}
-        className={isMinimized ? "p-0" : "max-w-full"}
+        className={`transition-transform duration-75 ease-linear ${
+          isMinimized ? "p-0" : "max-w-full p-0"
+        } rounded-2xl shadow-xl bg-background/95 border border-border z-50`}
       >
-        <Header
-          releaseDate={work.releaseDate}
-          isMinimized={isMinimized}
-          onMinimize={handleMinimize}
-          onClose={handleClose}
-          dragAttributes={attributes}
-          dragListeners={listeners}
-        />
-        {/* Spotify player area */}
-        <div className={`${modalStyles.player.base} ${isMinimized ? modalStyles.player.minimized : ""}`}>
-          <SpotifyPlayer albumId={work.id} minimized={isMinimized} />
+        {/* Size change container */}
+        <div
+          style={{
+            ...dimensions,
+          }}
+          className="w-full h-full transition-[width,height] duration-200 ease-out flex flex-col items-center"
+        >
+          <Header
+            releaseDate={work.releaseDate}
+            isMinimized={isMinimized}
+            onMinimize={handleMinimize}
+            onClose={handleClose}
+            dragAttributes={attributes}
+            dragListeners={listeners}
+          />
+          {/* Spotify player area */}
+          <div
+            className={`${modalStyles.player.base} ${
+              isMinimized ? modalStyles.player.minimized : ""
+            } w-full h-full flex-1 flex items-center justify-center`}
+          >
+            <SpotifyPlayer albumId={work.id} minimized={isMinimized} />
+          </div>
         </div>
       </div>
     </>
