@@ -16,16 +16,20 @@ const Header: React.FC<WorkModalHeaderProps> = ({
       {...(isMinimized ? dragListeners : {})}
       {...(isMinimized ? dragAttributes : {})}
     >
-      <span className="text-sm text-gray-600 truncate max-w-[120px]">{releaseDate}</span>
-      <div className="flex items-center gap-2">
+      <span className="text-sm text-gray-600 max-w-xs whitespace-nowrap">Release: {releaseDate}</span>
+      <div className="flex items-center gap-3">
         <button
           onClick={onMinimize}
-          className="text-gray-500 hover:text-gray-800 text-lg"
+          className="text-gray-500 hover:text-gray-800 text-2xl w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors"
           aria-label={isMinimized ? "Maximize" : "Minimize"}
         >
           ⤢
         </button>
-        <button onClick={onClose} className="text-gray-500 hover:text-gray-800 text-lg" aria-label="Close">
+        <button
+          onClick={onClose}
+          className="text-gray-500 hover:text-gray-800 text-2xl w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors"
+          aria-label="Close"
+        >
           ×
         </button>
       </div>

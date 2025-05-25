@@ -44,7 +44,7 @@ const WorkModal: React.FC<WorkModalProps> = ({ work, onClose }) => {
       {/* Overlay: show only when not minimized */}
       {!isMinimized && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-40 z-40 transition-opacity duration-300"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300"
           onClick={onClose}
           aria-label="Close modal overlay"
         />
@@ -58,7 +58,9 @@ const WorkModal: React.FC<WorkModalProps> = ({ work, onClose }) => {
           ...positions,
           transform: translate,
         }}
-        className={isMinimized ? "p-0" : "max-w-full"}
+        className={`transition-all duration-300 ${
+          isMinimized ? "p-0" : "max-w-full p-0"
+        } rounded-2xl shadow-xl bg-background/95 border border-border flex flex-col items-center z-50`}
       >
         <Header
           releaseDate={work.releaseDate}
@@ -69,7 +71,11 @@ const WorkModal: React.FC<WorkModalProps> = ({ work, onClose }) => {
           dragListeners={listeners}
         />
         {/* Spotify player area */}
-        <div className={`${modalStyles.player.base} ${isMinimized ? modalStyles.player.minimized : ""}`}>
+        <div
+          className={`${modalStyles.player.base} ${
+            isMinimized ? modalStyles.player.minimized : ""
+          } w-full h-full flex-1 flex items-center justify-center`}
+        >
           <SpotifyPlayer albumId={work.id} minimized={isMinimized} />
         </div>
       </div>
