@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import ArtistCard from "./ArtistCard";
-import Carousel from "../common/Carousel";
+import Carousel from "../carousel/Carousel";
 import type { Artist } from "../../types/timeline";
 import type { ArtistListProps } from "../../types/components";
 
