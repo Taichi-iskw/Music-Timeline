@@ -82,22 +82,31 @@ const Carousel: React.FC<CarouselWithResetProps> = ({ children, resetKey }) => {
   };
 
   // Calculate group width dynamically
-  const groupWidth = cardWidth * mainSize + gap * (mainSize - 1);
+  let groupWidth = cardWidth * mainSize + gap * (mainSize - 1);
+  if (total < mainSize) {
+    groupWidth = cardWidth * total + gap * (total - 1);
+  }
   const slidePx = -(page * groupWidth);
 
   return (
     <div className="relative flex items-center w-full select-none overflow-hidden">
-      <CarouselArrowButton direction="left" onClick={handlePrev} disabled={!canPrev} ariaLabel="Previous" />
-      <CarouselSlider
-        groupCount={groupCount}
-        groupWidth={groupWidth}
-        slidePx={slidePx}
-        cardRef={cardRef}
-        MAIN_SIZE={mainSize}
-      >
-        {children}
-      </CarouselSlider>
-      <CarouselArrowButton direction="right" onClick={handleNext} disabled={!canNext} ariaLabel="Next" />
+      <div className="absolute left-0 z-10">
+        <CarouselArrowButton direction="left" onClick={handlePrev} disabled={!canPrev} ariaLabel="Previous" />
+      </div>
+      <div className="w-full flex justify-center">
+        <CarouselSlider
+          groupCount={groupCount}
+          groupWidth={groupWidth}
+          slidePx={slidePx}
+          cardRef={cardRef}
+          MAIN_SIZE={mainSize}
+        >
+          {children}
+        </CarouselSlider>
+      </div>
+      <div className="absolute right-0 z-10">
+        <CarouselArrowButton direction="right" onClick={handleNext} disabled={!canNext} ariaLabel="Next" />
+      </div>
     </div>
   );
 };

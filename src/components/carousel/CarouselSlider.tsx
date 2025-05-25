@@ -1,14 +1,6 @@
-import React, { RefObject } from "react";
+import React from "react";
+import type { CarouselSliderProps } from "../../types/components";
 import CarouselGroup from "./CarouselGroup";
-
-interface CarouselSliderProps {
-  groupCount: number;
-  groupWidth: number;
-  slidePx: number;
-  children: React.ReactNode[];
-  cardRef: RefObject<HTMLDivElement>;
-  MAIN_SIZE: number;
-}
 
 const CarouselSlider: React.FC<CarouselSliderProps> = ({
   groupCount,
@@ -18,11 +10,10 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
   cardRef,
   MAIN_SIZE,
 }) => (
-  <div className="w-full overflow-hidden relative">
+  <div className="overflow-hidden relative flex justify-center">
     <div
-      className="flex transition-transform duration-500 ease-in-out"
+      className="flex transition-transform duration-500 ease-in-out justify-center w-auto"
       style={{
-        width: `${groupCount * groupWidth}px`,
         transform: `translateX(${slidePx}px)`,
       }}
     >
