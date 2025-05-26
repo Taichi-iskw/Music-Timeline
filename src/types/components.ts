@@ -80,6 +80,8 @@ export interface ArtistListProps {
 
 export interface ArtistSearchBarProps {
   onSearch: (artists: Artist[]) => void;
+  value: string;
+  onChange: (value: string) => void;
 }
 
 // Work related types

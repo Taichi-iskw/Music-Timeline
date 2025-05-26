@@ -4,11 +4,10 @@ import type { ArtistSearchBarProps } from "../../types/components";
 import { searchArtists } from "../../services/artistService";
 import { useDebounce } from "../../hooks/useDebounce";
 
-const ArtistSearchBar: React.FC<ArtistSearchBarProps> = ({ onSearch }) => {
-  const [input, setInput] = useState("");
+const ArtistSearchBar: React.FC<ArtistSearchBarProps> = ({ onSearch, value, onChange }) => {
   const [loading, setLoading] = useState(false);
   const [isButtonHovered, setIsButtonHovered] = useState(false);
-  const debouncedInput = useDebounce(input, 300);
+  const debouncedInput = useDebounce(value, 300);
 
   const handleSearch = useCallback(
     async (query: string) => {
@@ -37,7 +36,7 @@ const ArtistSearchBar: React.FC<ArtistSearchBarProps> = ({ onSearch }) => {
   }, [debouncedInput, handleSearch]);
 
   const handleButtonClick = () => {
-    handleSearch(input);
+    handleSearch(value);
   };
 
   return (
@@ -52,8 +51,8 @@ const ArtistSearchBar: React.FC<ArtistSearchBarProps> = ({ onSearch }) => {
             type="text"
             className="w-full h-10 px-4 py-2 text-sm bg-background border border-input rounded-md placeholder:text-muted-foreground focus:outline-none focus:border-border disabled:cursor-not-allowed disabled:opacity-50"
             placeholder="Enter artist name to search..."
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
           />
           {loading && (
             <div className="absolute right-3 top-1/2 -translate-y-1/2">

@@ -1,27 +1,21 @@
 "use client";
 import React from "react";
-import ArtistCard from "./ArtistCard";
 import type { ArtistListProps } from "../../types/components";
+import ArtistCardList from "./ArtistCardList";
+import WelcomeSection from "./WelcomeSection";
+import ArtistListContainer from "./ArtistListContainer";
 
 const ArtistList: React.FC<ArtistListProps> = ({ artists, onArtistClick }) => {
+  const hasArtists = artists.length > 0;
+
+  if (!hasArtists) {
+    return <WelcomeSection hasArtists={hasArtists} />;
+  }
+
   return (
-    <div className="w-full bg-muted/30 rounded-lg p-4 backdrop-blur supports-[backdrop-filter]:bg-muted/30">
-      <div className="w-full flex justify-center">
-        <div className="max-w-[1200px] w-full overflow-x-auto -mx-4 sm:mx-0">
-          <div className="flex gap-4 px-4 sm:px-0 justify-start">
-            {artists.map((artist) => (
-              <ArtistCard
-                key={artist.id}
-                id={artist.id}
-                name={artist.name}
-                imageUrl={artist.images && artist.images[0] ? artist.images[0].url : undefined}
-                onClick={onArtistClick}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
+    <ArtistListContainer title="Suggested Artists">
+      <ArtistCardList artists={artists} onArtistClick={onArtistClick} />
+    </ArtistListContainer>
   );
 };
 
