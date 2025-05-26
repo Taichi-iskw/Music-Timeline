@@ -6,7 +6,7 @@ import ArtistList from "../components/artist/ArtistList";
 import WorksTypeSelector from "../components/timeline/WorksTypeSelector";
 import TimelineTable from "../components/timeline/TimelineTable";
 import WorkModal from "../components/modal/WorkModal";
-import WelcomeSection from "../components/home/WelcomeSection";
+import PopularArtists from "../components/home/PopularArtists";
 import { useTimeline } from "../hooks/useTimeline";
 import { useWorkModal } from "../hooks/useWorkModal";
 import type { Work } from "../types/timeline";
@@ -73,7 +73,7 @@ export default function Home() {
             />
           </div>
         ) : (
-          <WelcomeSection />
+          <PopularArtists onArtistClick={handleArtistClick} />
         )}
         <WorkModal work={selectedWork} onClose={closeModal} />
       </main>
