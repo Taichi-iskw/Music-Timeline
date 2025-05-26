@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ThemeToggle } from "./ThemeToggle";
+import { LanguageSwitcher } from "./language-switcher";
 
 export default function Header() {
   return (
@@ -19,6 +20,7 @@ export default function Header() {
           <h1 className="text-lg sm:text-2xl font-bold tracking-tight text-foreground">Music Timeline</h1>
         </Link>
         <div className="flex items-center gap-2 sm:gap-4">
+          <LanguageSwitcher />
           <ThemeToggle />
         </div>
       </div>
