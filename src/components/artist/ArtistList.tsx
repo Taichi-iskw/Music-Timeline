@@ -11,9 +11,15 @@ const CARD_LIST_STYLES = "flex gap-4 px-4 sm:px-0 justify-start";
 
 // Welcome message component
 const WelcomeMessage = () => (
-  <div className="flex flex-col items-center justify-center h-full space-y-2">
-    <h2 className="text-2xl font-semibold">Welcome to Music Timeline</h2>
-    <p className="text-center text-muted-foreground">Line up artists and explore their music side by side.</p>
+  <div className="flex flex-col items-center justify-center h-full space-y-4">
+    <h2 className="text-2xl font-semibold text-center">
+      <span className="block sm:inline">Welcome to</span>{" "}
+      <span className="block sm:inline mt-1 sm:mt-0">Music Timeline</span>
+    </h2>
+    <p className="text-center text-muted-foreground max-w-[280px] sm:max-w-none">
+      <span className="block sm:inline">Line up artists and</span>{" "}
+      <span className="block sm:inline mt-1 sm:mt-0">explore their music side by side.</span>
+    </p>
   </div>
 );
 
