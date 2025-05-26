@@ -19,14 +19,6 @@ const ErrorMessage = ({ message }: { message: string }) => (
   <div className="text-center text-muted-foreground">{message}</div>
 );
 
-// Welcome section component
-const WelcomeSection = () => (
-  <div className="text-center mb-8">
-    <h2 className="text-2xl font-bold mb-2">Welcome to Music Timeline</h2>
-    <p className="text-muted-foreground">Line up artists and explore their music side by side.</p>
-  </div>
-);
-
 // Artist list component
 const ArtistList = ({ artists, onArtistClick }: { artists: Artist[]; onArtistClick: (artist: Artist) => void }) => (
   <div className="w-full flex justify-center">
@@ -70,7 +62,6 @@ const PopularArtists: React.FC<PopularArtistsProps> = ({ onArtistClick }) => {
 
   return (
     <div className="mt-12 w-full">
-      <WelcomeSection />
       <div className="bg-card rounded-lg p-6 border border-border">
         <h3 className="text-lg font-semibold mb-4">Popular Artists</h3>
         {loading ? (

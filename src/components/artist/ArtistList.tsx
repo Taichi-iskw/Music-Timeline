@@ -3,28 +3,51 @@ import React from "react";
 import ArtistCard from "./ArtistCard";
 import type { ArtistListProps } from "../../types/components";
 
+// Constants
+const CONTAINER_HEIGHT = "h-[250px]";
+const CONTAINER_STYLES = "rounded-lg p-6";
+const CARD_CONTAINER_STYLES = "max-w-[1200px] w-full overflow-x-auto -mx-4 sm:mx-0";
+const CARD_LIST_STYLES = "flex gap-4 px-4 sm:px-0 justify-start";
+
+// Welcome message component
+const WelcomeMessage = () => (
+  <div className="flex flex-col items-center justify-center h-full space-y-2">
+    <h2 className="text-2xl font-semibold">Welcome to Music Timeline</h2>
+    <p className="text-center text-muted-foreground">Line up artists and explore their music side by side.</p>
+  </div>
+);
+
+// Artist card list component
+const ArtistCardList = ({
+  artists,
+  onArtistClick,
+}: {
+  artists: ArtistListProps["artists"];
+  onArtistClick: ArtistListProps["onArtistClick"];
+}) => (
+  <div className={CARD_LIST_STYLES}>
+    {artists.map((artist) => (
+      <div key={artist.id} className="flex-none">
+        <ArtistCard id={artist.id} name={artist.name} imageUrl={artist.images?.[0]?.url} onClick={onArtistClick} />
+      </div>
+    ))}
+  </div>
+);
+
 const ArtistList: React.FC<ArtistListProps> = ({ artists, onArtistClick }) => {
-  if (artists.length === 0) {
-    return null;
-  }
+  const hasArtists = artists.length > 0;
+  const containerClassName = `${CONTAINER_STYLES} ${CONTAINER_HEIGHT} ${
+    hasArtists ? "bg-card border border-border" : ""
+  }`;
 
   return (
-    <div className="mt-8">
-      <div className="bg-card rounded-lg p-6 border border-border">
-        <h3 className="text-lg font-semibold mb-4">Search Results</h3>
-        <div className="w-full flex justify-center">
-          <div className="max-w-[1200px] w-full overflow-x-auto -mx-4 sm:mx-0">
-            <div className="flex gap-4 px-4 sm:px-0 justify-start">
-              {artists.map((artist) => (
-                <div key={artist.id} className="flex-none">
-                  <ArtistCard
-                    id={artist.id}
-                    name={artist.name}
-                    imageUrl={artist.images && artist.images[0] ? artist.images[0].url : undefined}
-                    onClick={onArtistClick}
-                  />
-                </div>
-              ))}
+    <div className="w-full">
+      <div className={containerClassName}>
+        <div className="w-full h-full flex flex-col">
+          {hasArtists && <h3 className="text-lg font-semibold mb-4">Suggested Artists</h3>}
+          <div className="w-full flex-1 flex justify-center">
+            <div className={CARD_CONTAINER_STYLES}>
+              {hasArtists ? <ArtistCardList artists={artists} onArtistClick={onArtistClick} /> : <WelcomeMessage />}
             </div>
           </div>
         </div>
