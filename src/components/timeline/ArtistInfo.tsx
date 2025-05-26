@@ -19,7 +19,7 @@ const ArtistInfo: React.FC<ArtistInfoProps> = ({ name, artist }) => {
       onClick={handleArtistClick}
     >
       {artist.images && artist.images[0] && (
-        <div className="relative w-8 h-8 overflow-hidden rounded-full ring-2 ring-border transition-transform group-hover:scale-110">
+        <div className="relative w-8 h-8 overflow-hidden rounded-lg">
           <Image src={artist.images[0].url} alt={name} width={32} height={32} className="w-full h-full object-cover" />
         </div>
       )}
