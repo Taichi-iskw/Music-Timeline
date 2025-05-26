@@ -3,6 +3,7 @@ import ArtistCardList from "../artist/ArtistCardList";
 import ArtistListContainer from "../artist/ArtistListContainer";
 import type { Artist } from "../../types/timeline";
 import { fetchPopularArtists } from "../../services/artistService";
+import { useTranslation } from "@/hooks/use-translation";
 
 interface PopularArtistsProps {
   onArtistClick: (artist: Artist) => void;
@@ -24,6 +25,7 @@ const PopularArtists: React.FC<PopularArtistsProps> = ({ onArtistClick }) => {
   const [artists, setArtists] = useState<Artist[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const t = useTranslation();
 
   useEffect(() => {
     const loadPopularArtists = async () => {
@@ -49,7 +51,7 @@ const PopularArtists: React.FC<PopularArtistsProps> = ({ onArtistClick }) => {
   };
 
   return (
-    <ArtistListContainer title="Popular Artists">
+    <ArtistListContainer title={t.popularArtists}>
       {loading ? (
         <LoadingSpinner />
       ) : error ? (

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import DndProvider from "@/components/providers/DndProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import DndProvider from "@/components/providers/DndProvider";
+import { LanguageProvider } from "@/components/providers/LanguageProvider";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 
@@ -18,10 +19,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Music Timeline",
-  description: "Visualize your favorite artists' discography timeline",
-  icons: {
-    icon: "/favicon.svg",
-  },
+  description: "Create your own music timeline",
 };
 
 export default function RootLayout({
@@ -33,15 +31,17 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background font-sans antialiased`}>
         <ThemeProvider>
-          <div className="relative flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1 container py-16 sm:py-20">
-              <DndProvider>{children}</DndProvider>
-            </main>
-            <div className="mt-auto">
-              <Footer />
+          <LanguageProvider>
+            <div className="relative flex min-h-screen flex-col">
+              <Header />
+              <main className="flex-1 container py-16 sm:py-20">
+                <DndProvider>{children}</DndProvider>
+              </main>
+              <div className="mt-auto">
+                <Footer />
+              </div>
             </div>
-          </div>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

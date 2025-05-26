@@ -3,11 +3,13 @@ import React, { useState, useEffect, useCallback } from "react";
 import type { ArtistSearchBarProps } from "../../types/components";
 import { searchArtists } from "../../services/artistService";
 import { useDebounce } from "../../hooks/useDebounce";
+import { useTranslation } from "@/hooks/use-translation";
 
 const ArtistSearchBar: React.FC<ArtistSearchBarProps> = ({ onSearch, value, onChange }) => {
   const [loading, setLoading] = useState(false);
   const [isButtonHovered, setIsButtonHovered] = useState(false);
   const debouncedInput = useDebounce(value, 300);
+  const t = useTranslation();
 
   const handleSearch = useCallback(
     async (query: string) => {
@@ -50,7 +52,7 @@ const ArtistSearchBar: React.FC<ArtistSearchBarProps> = ({ onSearch, value, onCh
             id="artist-name"
             type="text"
             className="w-full h-10 px-4 py-2 text-sm bg-background border border-input rounded-md placeholder:text-muted-foreground focus:outline-none focus:border-border disabled:cursor-not-allowed disabled:opacity-50"
-            placeholder="Enter artist name to search..."
+            placeholder={t.searchPlaceholder}
             value={value}
             onChange={(e) => onChange(e.target.value)}
           />
@@ -73,6 +75,7 @@ const ArtistSearchBar: React.FC<ArtistSearchBarProps> = ({ onSearch, value, onCh
           )}
         </div>
       </div>
+
       <button
         onClick={handleButtonClick}
         disabled={loading}
