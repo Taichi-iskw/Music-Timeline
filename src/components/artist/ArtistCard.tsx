@@ -3,9 +3,9 @@ import React from "react";
 import type { ArtistCardProps } from "../../types/components";
 import Image from "next/image";
 
-const CARD_WIDTH = "w-24 sm:w-32 min-w-[96px] sm:min-w-[160px] max-w-[200px]";
-const IMAGE_HEIGHT = "h-24 sm:h-32";
-const NAME_HEIGHT = "h-8 sm:h-10";
+const CARD_WIDTH = "w-32 sm:w-32 min-w-[128px] sm:min-w-[160px] max-w-[200px]";
+const IMAGE_HEIGHT = "h-32 sm:h-32";
+const NAME_HEIGHT = "h-10 sm:h-10";
 
 const ArtistCard: React.FC<ArtistCardProps> = ({ name, imageUrl, id, onClick }) => (
   <div
@@ -24,7 +24,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ name, imageUrl, id, onClick }) 
       ) : (
         <div className="w-full h-full bg-muted flex items-center justify-center">
           <svg
-            className="w-6 h-6 sm:w-8 sm:h-8 text-muted-foreground"
+            className="w-8 h-8 text-muted-foreground"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -41,7 +41,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ name, imageUrl, id, onClick }) 
       )}
     </div>
     <div className={`flex items-center justify-center w-full ${NAME_HEIGHT} px-2 bg-card rounded-b-lg`}>
-      <span className="font-medium text-xs sm:text-sm truncate block whitespace-nowrap overflow-hidden max-w-[90px] sm:max-w-[140px] text-center group-hover:text-primary transition-colors">
+      <span className="font-medium text-sm truncate block whitespace-nowrap overflow-hidden max-w-[120px] sm:max-w-[140px] text-center group-hover:text-primary transition-colors">
         {name}
       </span>
     </div>

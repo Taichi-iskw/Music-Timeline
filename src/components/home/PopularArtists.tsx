@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ArtistCard from "../artist/ArtistCard";
+import ArtistCardList from "../artist/ArtistCardList";
+import ArtistListContainer from "../artist/ArtistListContainer";
 import type { Artist } from "../../types/timeline";
 import { fetchPopularArtists } from "../../services/artistService";
 
@@ -17,26 +18,6 @@ const LoadingSpinner = () => (
 // Error message component
 const ErrorMessage = ({ message }: { message: string }) => (
   <div className="text-center text-muted-foreground">{message}</div>
-);
-
-// Artist list component
-const ArtistList = ({ artists, onArtistClick }: { artists: Artist[]; onArtistClick: (artist: Artist) => void }) => (
-  <div className="w-full flex justify-center">
-    <div className="max-w-[1200px] w-full overflow-x-auto -mx-4 sm:mx-0">
-      <div className="flex gap-4 px-4 sm:px-0 justify-start">
-        {artists.map((artist) => (
-          <div key={artist.id} className="flex-none">
-            <ArtistCard
-              id={artist.id}
-              name={artist.name}
-              imageUrl={artist.images?.[0]?.url}
-              onClick={() => onArtistClick(artist)}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
 );
 
 const PopularArtists: React.FC<PopularArtistsProps> = ({ onArtistClick }) => {
@@ -60,19 +41,23 @@ const PopularArtists: React.FC<PopularArtistsProps> = ({ onArtistClick }) => {
     loadPopularArtists();
   }, []);
 
+  const handleArtistClick = (id: string) => {
+    const artist = artists.find((a) => a.id === id);
+    if (artist) {
+      onArtistClick(artist);
+    }
+  };
+
   return (
-    <div className="mt-12 w-full">
-      <div className="bg-card rounded-lg p-6 border border-border">
-        <h3 className="text-lg font-semibold mb-4">Popular Artists</h3>
-        {loading ? (
-          <LoadingSpinner />
-        ) : error ? (
-          <ErrorMessage message={error} />
-        ) : (
-          <ArtistList artists={artists} onArtistClick={onArtistClick} />
-        )}
-      </div>
-    </div>
+    <ArtistListContainer title="Popular Artists">
+      {loading ? (
+        <LoadingSpinner />
+      ) : error ? (
+        <ErrorMessage message={error} />
+      ) : (
+        <ArtistCardList artists={artists} onArtistClick={handleArtistClick} />
+      )}
+    </ArtistListContainer>
   );
 };
 
