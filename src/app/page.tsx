@@ -6,6 +6,7 @@ import ArtistList from "../components/artist/ArtistList";
 import WorksTypeSelector from "../components/timeline/WorksTypeSelector";
 import TimelineTable from "../components/timeline/TimelineTable";
 import WorkModal from "../components/modal/WorkModal";
+import WelcomeSection from "../components/home/WelcomeSection";
 import { useTimeline } from "../hooks/useTimeline";
 import { useWorkModal } from "../hooks/useWorkModal";
 import type { Work } from "../types/timeline";
@@ -55,7 +56,7 @@ export default function Home() {
             }}
           />
         </div>
-        {selectedArtists.length > 0 && (
+        {selectedArtists.length > 0 ? (
           <div className="mt-8">
             <TimelineTable
               years={years}
@@ -71,6 +72,8 @@ export default function Home() {
               }}
             />
           </div>
+        ) : (
+          <WelcomeSection />
         )}
         <WorkModal work={selectedWork} onClose={closeModal} />
       </main>
