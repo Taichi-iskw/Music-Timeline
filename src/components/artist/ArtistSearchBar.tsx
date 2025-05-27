@@ -44,14 +44,28 @@ const ArtistSearchBar: React.FC<ArtistSearchBarProps> = ({ onSearch, value, onCh
   return (
     <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full">
       <div className="flex items-center gap-3 w-full">
-        <label htmlFor="artist-name" className="text-base font-medium text-muted-foreground whitespace-nowrap">
-          Artist
-        </label>
-        <div className="relative flex-1">
+        <div className="relative flex-1 group">
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-primary">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-4 h-4"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+          </div>
           <input
             id="artist-name"
             type="text"
-            className="w-full h-10 px-4 py-2 text-sm bg-background border border-input rounded-md placeholder:text-muted-foreground focus:outline-none focus:border-border disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full h-12 pl-9 pr-4 py-2 text-sm bg-background border border-input rounded-lg placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary disabled:cursor-not-allowed disabled:opacity-50 transition-all"
             placeholder={t.searchPlaceholder}
             value={value}
             onChange={(e) => onChange(e.target.value)}
@@ -59,7 +73,7 @@ const ArtistSearchBar: React.FC<ArtistSearchBarProps> = ({ onSearch, value, onCh
           {loading && (
             <div className="absolute right-3 top-1/2 -translate-y-1/2">
               <svg
-                className="animate-spin h-4 w-4 text-muted-foreground"
+                className="animate-spin h-4 w-4 text-primary"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -81,8 +95,8 @@ const ArtistSearchBar: React.FC<ArtistSearchBarProps> = ({ onSearch, value, onCh
         disabled={loading}
         onMouseEnter={() => setIsButtonHovered(true)}
         onMouseLeave={() => setIsButtonHovered(false)}
-        className={`inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus:outline-none disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground h-10 px-4 py-2 ${
-          isButtonHovered && !loading ? "hover:bg-primary/90" : ""
+        className={`inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground h-12 px-6 py-2 ${
+          isButtonHovered && !loading ? "hover:bg-primary/90 shadow-md" : ""
         }`}
       >
         Search
