@@ -39,6 +39,7 @@ export interface TimelineTableProps {
   isAscending?: boolean;
   onWorkClick?: (work: Work) => void;
   onSortEnd?: (newOrder: number[]) => void;
+  isLoading?: boolean;
 }
 
 export interface TimelineRowProps {

@@ -97,22 +97,30 @@
 
   /* Timeline specific styles */
   .timeline-table {
-    @apply overflow-x-auto rounded-lg border border-border bg-card shadow-sm;
+    @apply relative overflow-x-auto rounded-lg border border-border bg-card shadow-sm;
   }
 
   .timeline-header {
-    @apply sticky top-0 z-20 bg-muted/50 backdrop-blur supports-[backdrop-filter]:bg-muted/50;
+    @apply sticky top-0 z-20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60;
+  }
+
+  .timeline-header th {
+    @apply border-b border-border px-4 py-3 text-left text-sm font-medium text-muted-foreground bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-colors;
   }
 
   .timeline-row {
-    @apply hover:bg-muted/30 transition-colors;
+    @apply hover:bg-muted/50 dark:hover:bg-muted/20 transition-colors duration-200;
   }
 
   .timeline-cell {
-    @apply border-b border-border align-top px-4 py-4;
+    @apply border-b border-border align-top px-4 py-4 transition-colors duration-200;
   }
 
   .timeline-year {
-    @apply border-b border-border px-4 py-4 text-center text-sm font-medium text-muted-foreground bg-muted/20 w-24;
+    @apply border-b border-border px-4 py-4 text-center text-sm font-medium text-muted-foreground bg-muted/20 w-24 transition-colors duration-200;
+  }
+
+  .timeline-year:hover {
+    @apply bg-muted/40 dark:bg-muted/15;
   }
 }

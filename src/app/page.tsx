@@ -1,10 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import Header from "../components/common/Header";
 import ArtistSearchBar from "../components/artist/ArtistSearchBar";
 import ArtistList from "../components/artist/ArtistList";
-import WorksTypeSelector from "../components/timeline/WorksTypeSelector";
-import TimelineTable from "../components/timeline/TimelineTable";
+import Timeline from "../components/timeline/Timeline";
 import WorkModal from "../components/modal/WorkModal";
 import PopularArtists from "../components/home/PopularArtists";
 import { useTimeline } from "../hooks/useTimeline";
@@ -26,6 +24,7 @@ export default function Home() {
     handleToggleSort,
     isAscending,
     organizeWorksByYear,
+    isLoading,
   } = useTimeline();
 
   const { years, artistNames, worksByYearAndArtist } = organizeWorksByYear();
@@ -41,17 +40,17 @@ export default function Home() {
     handleArtistClick(artist);
   };
 
+  const handleClearTimeline = () => {
+    setSelectedArtists([]);
+  };
+
   return (
     <div>
-      <Header />
-      <main className="pt-5 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <main className="w-full px-0 sm:max-w-6xl sm:mx-auto sm:px-6 lg:px-8">
         {/* Search Section */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           <div className="w-full sm:flex-1">
             <ArtistSearchBar onSearch={setArtists} value={searchInput} onChange={setSearchInput} />
-          </div>
-          <div className="w-full sm:w-auto">
-            <WorksTypeSelector value={worksType} onChange={setWorksType} />
           </div>
         </div>
 
@@ -69,11 +68,13 @@ export default function Home() {
         {/* Timeline or Popular Artists */}
         <div className="mt-8">
           {selectedArtists.length > 0 ? (
-            <TimelineTable
+            <Timeline
               years={years}
               artistNames={artistNames}
               artists={selectedArtists}
               worksByYearAndArtist={worksByYearAndArtist}
+              worksType={worksType}
+              onWorksTypeChange={setWorksType}
               onRemoveArtist={handleRemoveArtistFromTable}
               onToggleSort={handleToggleSort}
               isAscending={isAscending}
@@ -81,6 +82,8 @@ export default function Home() {
               onSortEnd={(newOrder) => {
                 setSelectedArtists((prev) => newOrder.map((i) => prev[i]));
               }}
+              onClearTimeline={handleClearTimeline}
+              isLoading={isLoading}
             />
           ) : (
             <PopularArtists onArtistClick={handlePopularArtistClick} />

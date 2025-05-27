@@ -13,6 +13,8 @@ const SortableHeader: React.FC<Omit<SortableHeaderProps, "index">> = ({ id, name
     transition,
     opacity: isDragging ? 0.5 : 1,
     cursor: "grab",
+    touchAction: "none" as const,
+    userSelect: "none" as const,
   };
 
   return (
@@ -26,12 +28,14 @@ const SortableHeader: React.FC<Omit<SortableHeaderProps, "index">> = ({ id, name
           <div className="flex items-center gap-2">
             <DragHandle attributes={attributes} listeners={listeners} />
             <ArtistInfo name={name} artist={artist} />
+            {onRemove && <RemoveButton onRemove={onRemove} />}
           </div>
         </div>
-        {onRemove && <RemoveButton onRemove={onRemove} />}
       </div>
     </th>
   );
 };
+
+SortableHeader.displayName = "SortableHeader";
 
 export default SortableHeader;

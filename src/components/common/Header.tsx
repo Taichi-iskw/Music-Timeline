@@ -6,7 +6,7 @@ import { LanguageSwitcher } from "./language-switcher";
 
 export default function Header() {
   return (
-    <header className="fixed top-0 left-0 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
+    <header className="w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
       <div className="container flex h-14 sm:h-16 items-center justify-between">
         <Link href="/" className="flex items-center focus:outline-none">
           <Image

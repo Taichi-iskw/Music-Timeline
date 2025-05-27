@@ -11,20 +11,27 @@ export function useTimelineCore() {
     handleRemoveArtistFromTable,
   } = useArtists();
 
-  const { worksType, setWorksType, worksByArtist, fetchWorks } = useWorks();
+  const { worksType, setWorksType, worksByArtist, fetchWorks, loadingArtists } = useWorks();
 
   const { isAscending, handleToggleSort, organizeWorksByYear } = useTimelineSort();
 
   // Extend artist selection logic to fetch works
   const handleArtistClick = async (artist: Artist) => {
+    // Add artist first
     baseHandleArtistClick(artist);
-    await fetchWorks(artist.id);
+    // Then fetch works if not already loading
+    if (!loadingArtists.has(artist.id)) {
+      await fetchWorks(artist.id);
+    }
   };
 
   // Handle works type change
   const handleWorksTypeChange = (type: WorksType) => {
     setWorksType(type);
   };
+
+  // Check if any artist's works are still loading
+  const isLoading = loadingArtists.size > 0;
 
   return {
     worksType,
@@ -36,5 +43,6 @@ export function useTimelineCore() {
     handleToggleSort,
     isAscending,
     organizeWorksByYear: () => organizeWorksByYear(selectedArtists, worksByArtist),
+    isLoading,
   };
 }

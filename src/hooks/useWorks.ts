@@ -5,9 +5,13 @@ import { fetchArtistWorks } from "../services/artistService";
 export function useWorks() {
   const [worksType, setWorksType] = useState<WorksType>("all");
   const [worksByArtist, setWorksByArtist] = useState<{ [key: string]: WorkWithArtist[] }>({});
+  const [loadingArtists, setLoadingArtists] = useState<Set<string>>(new Set());
 
   const fetchWorks = useCallback(
     async (artistId: string) => {
+      if (loadingArtists.has(artistId)) return;
+
+      setLoadingArtists((prev) => new Set(prev).add(artistId));
       try {
         const data = await fetchArtistWorks(artistId, worksType);
         // Convert Work[] to WorkWithArtist[] by adding artistName
@@ -18,9 +22,15 @@ export function useWorks() {
         setWorksByArtist((prev) => ({ ...prev, [artistId]: worksWithArtist }));
       } catch (e) {
         console.error("Failed to fetch works", e);
+      } finally {
+        setLoadingArtists((prev) => {
+          const next = new Set(prev);
+          next.delete(artistId);
+          return next;
+        });
       }
     },
-    [worksType]
+    [worksType, loadingArtists]
   );
 
   // Refetch works when type changes
@@ -46,5 +56,6 @@ export function useWorks() {
     worksByArtist,
     fetchWorks,
     removeWorks,
+    loadingArtists,
   };
 }
