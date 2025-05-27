@@ -34,7 +34,7 @@ export default function RootLayout({
           <LanguageProvider>
             <div className="relative flex min-h-screen flex-col">
               <Header />
-              <main className="flex-1 container py-16 sm:py-20">
+              <main className="flex-1 container py-4 sm:py-6">
                 <DndProvider>{children}</DndProvider>
               </main>
               <div className="mt-auto">

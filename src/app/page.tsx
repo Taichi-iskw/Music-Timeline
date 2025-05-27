@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import Header from "../components/common/Header";
 import ArtistSearchBar from "../components/artist/ArtistSearchBar";
 import ArtistList from "../components/artist/ArtistList";
 import Timeline from "../components/timeline/Timeline";
@@ -47,8 +46,7 @@ export default function Home() {
 
   return (
     <div>
-      <Header />
-      <main className="pt-5 w-full px-0 sm:max-w-6xl sm:mx-auto sm:px-6 lg:px-8">
+      <main className="w-full px-0 sm:max-w-6xl sm:mx-auto sm:px-6 lg:px-8">
         {/* Search Section */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           <div className="w-full sm:flex-1">
