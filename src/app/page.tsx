@@ -48,7 +48,7 @@ export default function Home() {
   return (
     <div>
       <Header />
-      <main className="pt-5 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <main className="pt-5 w-full px-0 sm:max-w-6xl sm:mx-auto sm:px-6 lg:px-8">
         {/* Search Section */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           <div className="w-full sm:flex-1">

@@ -70,7 +70,7 @@ const TimelineTable: React.FC<TimelineTableProps> = ({
 
   return (
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd} modifiers={[]}>
-      <div className="timeline-table overflow-x-auto">
+      <div className="timeline-table overflow-x-auto w-full">
         <table className="min-w-full border-collapse">
           <thead className="timeline-header sticky top-0 z-10">
             <tr>
