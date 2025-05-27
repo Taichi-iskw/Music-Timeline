@@ -22,12 +22,37 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>("light");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    const savedTheme = localStorage.getItem("theme") as Theme | null;
+    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    setTheme(savedTheme || systemTheme);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     const root = window.document.documentElement;
     root.classList.remove("light", "dark");
     root.classList.add(theme);
-  }, [theme]);
+    localStorage.setItem("theme", theme);
+  }, [theme, mounted]);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (!localStorage.getItem("theme")) {
+        setTheme(e.matches ? "dark" : "light");
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, [mounted]);
 
   const value = {
     theme,
