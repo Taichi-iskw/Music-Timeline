@@ -28,12 +28,14 @@ const SortableHeader: React.FC<Omit<SortableHeaderProps, "index">> = ({ id, name
           <div className="flex items-center gap-2">
             <DragHandle attributes={attributes} listeners={listeners} />
             <ArtistInfo name={name} artist={artist} />
+            {onRemove && <RemoveButton onRemove={onRemove} />}
           </div>
         </div>
-        {onRemove && <RemoveButton onRemove={onRemove} />}
       </div>
     </th>
   );
 };
+
+SortableHeader.displayName = "SortableHeader";
 
 export default SortableHeader;
