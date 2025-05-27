@@ -25,7 +25,7 @@ const useLanguageStore = create<LanguageState>()(
     {
       name: "language-storage",
       storage: createJSONStorage(() => localStorage),
-      skipHydration: true,
+      partialize: (state) => ({ language: state.language }),
     }
   )
 );
@@ -40,12 +40,15 @@ export const useLanguage = () => {
     setIsHydrated(true);
   }, []);
 
-  // Set initial language based on browser settings
+  // Set initial language based on browser settings if no saved language exists
   useEffect(() => {
-    if (isHydrated && !localStorage.getItem("language-storage")) {
-      const browserLang = window.navigator.language.toLowerCase();
-      const initialLang: Language = browserLang.startsWith("ja") ? "ja" : "en";
-      setLanguage(initialLang);
+    if (isHydrated) {
+      const savedLanguage = localStorage.getItem("language-storage");
+      if (!savedLanguage) {
+        const browserLang = window.navigator.language.toLowerCase();
+        const initialLang: Language = browserLang.startsWith("ja") ? "ja" : "en";
+        setLanguage(initialLang);
+      }
     }
   }, [isHydrated, setLanguage]);
 
