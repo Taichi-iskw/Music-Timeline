@@ -26,6 +26,7 @@ export default function Home() {
     handleToggleSort,
     isAscending,
     organizeWorksByYear,
+    isLoading,
   } = useTimeline();
 
   const { years, artistNames, worksByYearAndArtist } = organizeWorksByYear();
@@ -81,6 +82,7 @@ export default function Home() {
               onSortEnd={(newOrder) => {
                 setSelectedArtists((prev) => newOrder.map((i) => prev[i]));
               }}
+              isLoading={isLoading}
             />
           ) : (
             <PopularArtists onArtistClick={handlePopularArtistClick} />
