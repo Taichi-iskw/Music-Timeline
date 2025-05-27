@@ -19,8 +19,15 @@ const ArtistInfo: React.FC<ArtistInfoProps> = ({ name, artist }) => {
       onClick={handleArtistClick}
     >
       {artist.images && artist.images[0] && (
-        <div className="relative w-8 h-8 overflow-hidden rounded-lg">
-          <Image src={artist.images[0].url} alt={name} width={32} height={32} className="w-full h-full object-cover" />
+        <div className="relative w-8 h-8 overflow-hidden rounded-lg flex-shrink-0">
+          <Image
+            src={artist.images[0].url}
+            alt={name}
+            width={32}
+            height={32}
+            className="w-full h-full object-cover"
+            style={{ aspectRatio: "1/1" }}
+          />
         </div>
       )}
       <span className="font-medium group-hover:text-foreground transition-colors">{name}</span>
