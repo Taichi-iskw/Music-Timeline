@@ -13,6 +13,8 @@ const SortableHeader: React.FC<Omit<SortableHeaderProps, "index">> = ({ id, name
     transition,
     opacity: isDragging ? 0.5 : 1,
     cursor: "grab",
+    touchAction: "none" as const,
+    userSelect: "none" as const,
   };
 
   return (

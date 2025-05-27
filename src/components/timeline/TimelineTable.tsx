@@ -36,8 +36,17 @@ const TimelineTable: React.FC<TimelineTableProps> = ({
   onSortEnd,
   isLoading = false,
 }) => {
-  // Configure drag and drop sensors
-  const sensors = useSensors(useSensor(PointerSensor), useSensor(KeyboardSensor));
+  // Configure drag and drop sensors with improved mobile support
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+        delay: 0,
+        tolerance: 5,
+      },
+    }),
+    useSensor(KeyboardSensor)
+  );
 
   // Handle drag end event and update artist order
   const handleDragEnd = (event: DragEndEvent) => {
@@ -60,7 +69,7 @@ const TimelineTable: React.FC<TimelineTableProps> = ({
   }
 
   return (
-    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd} modifiers={[]}>
       <div className="timeline-table overflow-x-auto">
         <table className="min-w-full border-collapse">
           <thead className="timeline-header sticky top-0 z-10">
