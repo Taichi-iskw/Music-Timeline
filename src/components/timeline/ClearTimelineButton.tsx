@@ -1,32 +1,46 @@
-import React from "react";
+import React, { memo, useCallback, useState, useEffect, useRef } from "react";
 
 interface ClearTimelineButtonProps {
   onClear: () => void;
 }
 
-const ClearTimelineButton: React.FC<ClearTimelineButtonProps> = ({ onClear }) => {
-  const [isConfirming, setIsConfirming] = React.useState(false);
+const ClearTimelineButton: React.FC<ClearTimelineButtonProps> = memo(({ onClear }) => {
+  const [isConfirming, setIsConfirming] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const handleClick = () => {
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isConfirming && buttonRef.current && !buttonRef.current.contains(event.target as Node)) {
+        setIsConfirming(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isConfirming]);
+
+  const handleClick = useCallback(() => {
     if (!isConfirming) {
       setIsConfirming(true);
-      // Reset confirmation state after 3 seconds
-      setTimeout(() => setIsConfirming(false), 3000);
       return;
     }
     onClear();
     setIsConfirming(false);
-  };
+  }, [isConfirming, onClear]);
 
   return (
     <button
+      ref={buttonRef}
       onClick={handleClick}
-      className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
+      className={`group flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all duration-200 w-[100px] justify-center ${
         isConfirming
-          ? "bg-destructive text-destructive-foreground hover:bg-destructive/90"
-          : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+          ? "bg-destructive/10 text-destructive hover:bg-destructive/20"
+          : "bg-secondary/50 text-secondary-foreground hover:bg-secondary/80"
       }`}
-      title="Clear all artists from timeline"
+      title="Reset timeline to start fresh"
+      aria-label={isConfirming ? "Click again to confirm resetting timeline" : "Reset timeline"}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -38,15 +52,17 @@ const ClearTimelineButton: React.FC<ClearTimelineButtonProps> = ({ onClear }) =>
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="w-4 h-4"
+        className={`w-4 h-4 transition-transform duration-200 ${isConfirming ? "rotate-180" : ""}`}
+        aria-hidden="true"
       >
-        <path d="M3 6h18" />
-        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+        <path d="M3 3v5h5" />
       </svg>
-      <span className="font-medium">{isConfirming ? "Click again to confirm" : "Clear Timeline"}</span>
+      <span className="font-medium">{isConfirming ? "Confirm" : "Reset"}</span>
     </button>
   );
-};
+});
+
+ClearTimelineButton.displayName = "ClearTimelineButton";
 
 export default ClearTimelineButton;
