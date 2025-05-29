@@ -3,9 +3,16 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import TermsModal from "./TermsModal";
+import { useLanguage } from "@/hooks/use-language";
 
 export default function Footer() {
   const [isTermsOpen, setIsTermsOpen] = useState(false);
+  const { language } = useLanguage();
+
+  const termsText = {
+    ja: "利用規約",
+    en: "Terms of Service",
+  };
 
   return (
     <>
@@ -26,7 +33,7 @@ export default function Footer() {
             onClick={() => setIsTermsOpen(true)}
             className="text-muted-foreground hover:text-foreground transition-colors"
           >
-            利用規約
+            {termsText[language]}
           </button>
         </div>
       </footer>
