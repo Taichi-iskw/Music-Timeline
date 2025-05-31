@@ -17,6 +17,8 @@ Available at 👉 [https://musictimeline.app](https://musictimeline.app)
 - ➕ Compare multiple artists side by side
 - 🎨 Clean, responsive UI (Next.js + Tailwind CSS)
 
+![Sample Demo](./public/music-timeline-sample.gif)
+
 ## 🛠 Tech Stack
 
 - Next.js
