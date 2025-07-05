@@ -50,9 +50,13 @@ export const searchArtists = async (query: string): Promise<Artist[]> => {
   }
 };
 
-export const fetchPopularArtists = async (): Promise<Artist[]> => {
+export const fetchPopularArtists = async (language?: string): Promise<Artist[]> => {
   try {
-    const data = await fetchFromAPI(API_ENDPOINTS.POPULAR);
+    const params: Record<string, string> = {};
+    if (language) {
+      params.lang = language;
+    }
+    const data = await fetchFromAPI(API_ENDPOINTS.POPULAR, params);
     return validateArtistResponse(data);
   } catch (error) {
     console.error("Error fetching popular artists:", error);

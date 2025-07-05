@@ -39,9 +39,24 @@ const createNotFoundResponse = () => {
   return NextResponse.json({ error: "No artists found" }, { status: 404 });
 };
 
+// Build search query based on language
+const buildSearchQuery = (language: string) => {
+  switch (language) {
+    case "ja":
+      return "genre:j-pop&type=artist&market=JP&limit=10";
+    case "en":
+    default:
+      return "genre:pop&type=artist&market=US&limit=10";
+  }
+};
+
 // Main API handler
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    // Get language from query parameters
+    const { searchParams } = new URL(request.url);
+    const language = searchParams.get("lang") || "en";
+
     // Get Spotify client and access token
     const spotify = await getSpotifyClient();
     const token = await spotify.getAccessToken();
@@ -51,8 +66,11 @@ export async function GET() {
       return NextResponse.json({ error: "Failed to get access token" }, { status: 500 });
     }
 
-    // Search for popular artists in Japan
-    const response = await fetch("https://api.spotify.com/v1/search?q=genre:j-pop&type=artist&market=JP&limit=10", {
+    // Build search query based on language
+    const searchQuery = buildSearchQuery(language);
+
+    // Search for popular artists
+    const response = await fetch(`https://api.spotify.com/v1/search?q=${searchQuery}`, {
       headers: {
         Authorization: `Bearer ${token.access_token}`,
       },
